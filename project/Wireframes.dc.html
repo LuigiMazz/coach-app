@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<meta name="design_doc_mode" content="canvas">
+<style>
+  body{margin:0;background:#F3EFE9;font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;color:#2B2723}
+  .lbl{font:600 11px/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;color:rgba(43,39,35,.5);text-transform:uppercase;letter-spacing:.06em;margin:0 0 10px 2px}
+  .ph{background:#E4DFD7;border-radius:4px}
+  .ph2{background:#D8D2C7;border-radius:4px}
+  .dash{border:1.5px dashed rgba(43,39,35,.28);border-radius:6px}
+</style>
+</helmet>
+
+<section style="padding:56px 56px 120px;display:flex;flex-direction:column;gap:64px;min-width:max-content">
+
+  <div>
+    <h1 style="font:700 22px/1.2 -apple-system,sans-serif;margin:0 0 4px" data-screen-label="Cover">Coach Exercise Manager — Wireframe low-fi</h1>
+    <p style="font:14px/1.5 -apple-system,sans-serif;color:rgba(43,39,35,.6);margin:0;max-width:640px">Flussi principali: Professionista (desktop + mobile) e Atleta (mobile). Struttura e gerarchia — non design visivo finale.</p>
+  </div>
+
+  <!-- GROUP A: PROFESSIONISTA DESKTOP -->
+  <div>
+    <p class="lbl">Professionista — Desktop</p>
+    <div style="display:flex;gap:32px;align-items:flex-start;flex-wrap:wrap">
+
+      <!-- A1 Dashboard -->
+      <div data-screen-label="Desktop / Dashboard">
+        <p class="lbl">01 · Dashboard</p>
+        <div style="width:1120px;height:720px;background:#fff;border:1px solid rgba(43,39,35,.14);border-radius:10px;box-shadow:0 1px 3px rgba(0,0,0,.06);display:flex;overflow:hidden">
+          <!-- sidebar -->
+          <div style="width:220px;flex:none;border-right:1px solid rgba(43,39,35,.1);padding:20px 14px;display:flex;flex-direction:column;gap:4px">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:22px">
+              <div class="ph2" style="width:26px;height:26px;border-radius:6px"></div>
+              <div class="ph" style="width:110px;height:12px"></div>
+            </div>
+            <sc-for list="{{ navItems }}" as="item" hint-placeholder-count="5">
+              <div style="display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:6px;background:{{ item.active ? '#F0DDD1' : 'transparent' }}">
+                <div style="width:16px;height:16px;border-radius:4px;background:{{ item.active ? '#C1633A' : '#D8D2C7' }}"></div>
+                <span style="font:13px/1.2 sans-serif;color:{{ item.active ? '#C1633A' : '#2B2723' }}">{{ item.label }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <!-- main -->
+          <div style="flex:1;padding:28px 32px;display:flex;flex-direction:column;gap:24px;overflow:auto">
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <div>
+                <div style="font:700 20px/1.2 sans-serif">Dashboard</div>
+                <div style="font:13px/1.4 sans-serif;color:rgba(43,39,35,.55);margin-top:2px">Bentornato, Andrea</div>
+              </div>
+              <div style="display:flex;gap:10px">
+                <div style="background:#C1633A;color:#fff;font:600 13px sans-serif;padding:10px 16px;border-radius:6px">+ Nuovo esercizio</div>
+                <div class="dash" style="padding:10px 16px;font:600 13px sans-serif">+ Nuovo programma</div>
+                <div class="dash" style="padding:10px 16px;font:600 13px sans-serif">+ Nuovo atleta</div>
+              </div>
+            </div>
+            <!-- stat cards -->
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
+              <sc-for list="{{ statCards }}" as="s" hint-placeholder-count="4">
+                <div class="dash" style="padding:18px;display:flex;flex-direction:column;gap:8px">
+                  <span style="font:12px sans-serif;color:rgba(43,39,35,.55)">{{ s.label }}</span>
+                  <span style="font:700 26px sans-serif">{{ s.value }}</span>
+                </div>
+              </sc-for>
+            </div>
+            <!-- recent -->
+            <div style="display:grid;grid-template-columns:1.3fr 1fr;gap:20px;flex:1">
+              <div class="dash" style="padding:18px;display:flex;flex-direction:column;gap:12px">
+                <span style="font:600 13px sans-serif">Atleti recenti</span>
+                <sc-for list="{{ athletes }}" as="a" hint-placeholder-count="4">
+                  <div style="display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid rgba(43,39,35,.08)">
+                    <div class="ph2" style="width:32px;height:32px;border-radius:16px"></div>
+                    <div style="flex:1">
+                      <div style="font:13px sans-serif">{{ a.name }}</div>
+                      <div style="font:12px sans-serif;color:rgba(43,39,35,.5)">{{ a.program }}</div>
+                    </div>
+                    <div style="font:12px sans-serif;color:rgba(43,39,35,.5)">{{ a.last }}</div>
+                  </div>
+                </sc-for>
+              </div>
+              <div class="dash" style="padding:18px;display:flex;flex-direction:column;gap:12px">
+                <span style="font:600 13px sans-serif">Programmi attivi</span>
+                <sc-for list="{{ programs }}" as="p" hint-placeholder-count="3">
+                  <div style="padding:10px 0;border-bottom:1px solid rgba(43,39,35,.08)">
+                    <div style="font:13px sans-serif">{{ p.name }}</div>
+                    <div style="font:12px sans-serif;color:rgba(43,39,35,.5);margin-top:2px">{{ p.athletes }} atleti assegnati</div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- A2 Libreria Esercizi -->
+      <div data-screen-label="Desktop / Libreria Esercizi">
+        <p class="lbl">02 · Libreria Esercizi</p>
+        <div style="width:1120px;height:720px;background:#fff;border:1px solid rgba(43,39,35,.14);border-radius:10px;box-shadow:0 1px 3px rgba(0,0,0,.06);display:flex;overflow:hidden">
+          <div style="width:220px;flex:none;border-right:1px solid rgba(43,39,35,.1);padding:20px 14px;display:flex;flex-direction:column;gap:4px">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:22px">
+              <div class="ph2" style="width:26px;height:26px;border-radius:6px"></div>
+              <div class="ph" style="width:110px;height:12px"></div>
+            </div>
+            <sc-for list="{{ navItems2 }}" as="item" hint-placeholder-count="5">
+              <div style="display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:6px;background:{{ item.active ? '#F0DDD1' : 'transparent' }}">
+                <div style="width:16px;height:16px;border-radius:4px;background:{{ item.active ? '#C1633A' : '#D8D2C7' }}"></div>
+                <span style="font:13px/1.2 sans-serif;color:{{ item.active ? '#C1633A' : '#2B2723' }}">{{ item.label }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="flex:1;padding:28px 32px;display:flex;flex-direction:column;gap:18px;overflow:auto">
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <div style="font:700 20px sans-serif">Libreria Esercizi</div>
+              <div style="background:#C1633A;color:#fff;font:600 13px sans-serif;padding:10px 16px;border-radius:6px">+ Nuovo esercizio</div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:center">
+              <div class="dash" style="flex:1;padding:10px 14px;font:13px sans-serif;color:rgba(43,39,35,.45)">🔍 Cerca esercizio…</div>
+              <div class="dash" style="padding:10px 14px;font:13px sans-serif">Filtri</div>
+              <div class="dash" style="padding:10px 14px;font:13px sans-serif">☆ Preferiti</div>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <sc-for list="{{ categories }}" as="c" hint-placeholder-count="6">
+                <div style="padding:6px 12px;border-radius:20px;font:12px sans-serif;background:{{ c.active ? '#C1633A' : '#F0EEE9' }};color:{{ c.active ? '#fff' : '#2B2723' }}">{{ c.name }}</div>
+              </sc-for>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;overflow:auto">
+              <sc-for list="{{ exercises }}" as="ex" hint-placeholder-count="6">
+                <div class="dash" style="padding:0;overflow:hidden;display:flex;flex-direction:column">
+                  <div class="ph" style="height:90px;display:flex;align-items:center;justify-content:center">
+                    <span style="font:11px ui-monospace,monospace;color:rgba(43,39,35,.4)">[thumbnail video]</span>
+                  </div>
+                  <div style="padding:12px;display:flex;flex-direction:column;gap:6px">
+                    <div style="font:600 13px sans-serif">{{ ex.name }}</div>
+                    <div style="font:11px sans-serif;color:rgba(43,39,35,.5)">{{ ex.cat }}</div>
+                    <div style="display:flex;gap:6px;flex-wrap:wrap">
+                      <sc-for list="{{ ex.tags }}" as="t" hint-placeholder-count="2">
+                        <span style="font:10px sans-serif;background:#F0EEE9;padding:3px 7px;border-radius:10px;color:rgba(43,39,35,.6)">{{ t }}</span>
+                      </sc-for>
+                    </div>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- A3 Programma Builder -->
+      <div data-screen-label="Desktop / Programma Builder">
+        <p class="lbl">03 · Programma (drag &amp; drop)</p>
+        <div style="width:1120px;height:720px;background:#fff;border:1px solid rgba(43,39,35,.14);border-radius:10px;box-shadow:0 1px 3px rgba(0,0,0,.06);display:flex;overflow:hidden">
+          <div style="flex:1;padding:28px 32px;display:flex;flex-direction:column;gap:16px;border-right:1px solid rgba(43,39,35,.1)">
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <div>
+                <div style="font:700 20px sans-serif">Pre-season Calcio</div>
+                <div style="font:12px sans-serif;color:rgba(43,39,35,.5)">Settimana 1 di 6</div>
+              </div>
+              <div style="background:#C1633A;color:#fff;font:600 13px sans-serif;padding:10px 16px;border-radius:6px">Salva template</div>
+            </div>
+            <sc-for list="{{ programBlocks }}" as="blk" hint-placeholder-count="3">
+              <div class="dash" style="padding:14px;display:flex;flex-direction:column;gap:10px">
+                <div style="font:600 13px sans-serif;color:rgba(43,39,35,.6)">{{ blk.block }}</div>
+                <sc-for list="{{ blk.items }}" as="it" hint-placeholder-count="2">
+                  <div style="display:flex;align-items:center;gap:10px;background:#F8F6F2;border-radius:6px;padding:10px 12px">
+                    <div style="width:14px;height:14px;background:#D8D2C7;border-radius:3px"></div>
+                    <div style="flex:1;font:13px sans-serif">{{ it }}</div>
+                    <div style="font:12px sans-serif;color:rgba(43,39,35,.5)">3 x 8 · rec 90"</div>
+                  </div>
+                </sc-for>
+                <div style="font:12px sans-serif;color:#C1633A">+ aggiungi esercizio</div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="width:300px;flex:none;padding:28px 20px;display:flex;flex-direction:column;gap:12px">
+            <div style="font:600 13px sans-serif">Libreria — trascina qui →</div>
+            <div class="dash" style="padding:10px 12px;font:13px sans-serif;color:rgba(43,39,35,.45)">🔍 Cerca…</div>
+            <sc-for list="{{ exercises }}" as="ex2" hint-placeholder-count="5">
+              <div style="display:flex;align-items:center;gap:10px;background:#F8F6F2;border-radius:6px;padding:9px 10px;cursor:grab">
+                <div class="ph2" style="width:26px;height:26px;border-radius:5px"></div>
+                <span style="font:12px sans-serif">{{ ex2.name }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+
+      <!-- A4 Gestione Atleti -->
+      <div data-screen-label="Desktop / Gestione Atleti">
+        <p class="lbl">04 · Gestione Atleti</p>
+        <div style="width:1120px;height:720px;background:#fff;border:1px solid rgba(43,39,35,.14);border-radius:10px;box-shadow:0 1px 3px rgba(0,0,0,.06);display:flex;overflow:hidden">
+          <div style="width:220px;flex:none;border-right:1px solid rgba(43,39,35,.1);padding:20px 14px;display:flex;flex-direction:column;gap:4px">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:22px">
+              <div class="ph2" style="width:26px;height:26px;border-radius:6px"></div>
+              <div class="ph" style="width:110px;height:12px"></div>
+            </div>
+            <sc-for list="{{ navItems3 }}" as="item" hint-placeholder-count="5">
+              <div style="display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:6px;background:{{ item.active ? '#F0DDD1' : 'transparent' }}">
+                <div style="width:16px;height:16px;border-radius:4px;background:{{ item.active ? '#C1633A' : '#D8D2C7' }}"></div>
+                <span style="font:13px/1.2 sans-serif;color:{{ item.active ? '#C1633A' : '#2B2723' }}">{{ item.label }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="flex:1;padding:28px 32px;display:flex;flex-direction:column;gap:16px">
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <div style="font:700 20px sans-serif">Atleti</div>
+              <div style="background:#C1633A;color:#fff;font:600 13px sans-serif;padding:10px 16px;border-radius:6px">+ Nuovo atleta</div>
+            </div>
+            <div class="dash" style="display:flex;flex-direction:column">
+              <div style="display:flex;padding:10px 14px;font:11px sans-serif;color:rgba(43,39,35,.5);border-bottom:1px solid rgba(43,39,35,.1)">
+                <div style="flex:2">Nome</div><div style="flex:2">Programma attivo</div><div style="flex:1">Ultimo allenamento</div><div style="flex:1.5">Completamento</div>
+              </div>
+              <sc-for list="{{ athletes }}" as="a2" hint-placeholder-count="4">
+                <div style="display:flex;align-items:center;padding:14px;border-bottom:1px solid rgba(43,39,35,.06)">
+                  <div style="flex:2;display:flex;align-items:center;gap:10px">
+                    <div class="ph2" style="width:28px;height:28px;border-radius:14px"></div>
+                    <span style="font:13px sans-serif">{{ a2.name }}</span>
+                  </div>
+                  <div style="flex:2;font:13px sans-serif">{{ a2.program }}</div>
+                  <div style="flex:1;font:13px sans-serif;color:rgba(43,39,35,.55)">{{ a2.last }}</div>
+                  <div style="flex:1.5;display:flex;align-items:center;gap:8px">
+                    <div style="flex:1;height:6px;background:#F0EEE9;border-radius:3px;overflow:hidden">
+                      <div style="width:{{ a2.pct }}%;height:100%;background:#C1633A"></div>
+                    </div>
+                    <span style="font:12px sans-serif;color:rgba(43,39,35,.55)">{{ a2.pct }}%</span>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- A5 Profilo Atleta -->
+      <div data-screen-label="Desktop / Profilo Atleta">
+        <p class="lbl">05 · Profilo Atleta</p>
+        <div style="width:1120px;height:720px;background:#fff;border:1px solid rgba(43,39,35,.14);border-radius:10px;box-shadow:0 1px 3px rgba(0,0,0,.06);display:flex;overflow:hidden">
+          <div style="flex:1;padding:28px 32px;display:flex;flex-direction:column;gap:20px">
+            <div style="display:flex;align-items:center;gap:16px">
+              <div class="ph2" style="width:64px;height:64px;border-radius:32px"></div>
+              <div>
+                <div style="font:700 20px sans-serif">Marco Rossi</div>
+                <div style="font:13px sans-serif;color:rgba(43,39,35,.5)">Calcio · Preparazione atletica</div>
+              </div>
+              <div style="margin-left:auto;background:#C1633A;color:#fff;font:600 13px sans-serif;padding:10px 16px;border-radius:6px">Assegna programma</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;flex:1;overflow:auto">
+              <div class="dash" style="padding:16px;display:flex;flex-direction:column;gap:10px">
+                <div style="font:600 13px sans-serif">Programmi assegnati</div>
+                <sc-for list="{{ programs }}" as="pp" hint-placeholder-count="3">
+                  <div style="padding:10px 0;border-bottom:1px solid rgba(43,39,35,.08);font:13px sans-serif">{{ pp.name }}</div>
+                </sc-for>
+              </div>
+              <div class="dash" style="padding:16px;display:flex;flex-direction:column;gap:10px">
+                <div style="font:600 13px sans-serif">Storico allenamenti</div>
+                <sc-for list="{{ history }}" as="h" hint-placeholder-count="4">
+                  <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(43,39,35,.08)">
+                    <span style="font:13px sans-serif">{{ h.date }}</span>
+                    <span style="font:12px sans-serif;color:rgba(43,39,35,.5)">{{ h.feedback }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- GROUP B: PROFESSIONISTA MOBILE -->
+  <div>
+    <p class="lbl">Professionista — Mobile</p>
+    <div style="display:flex;gap:32px;align-items:flex-start;flex-wrap:wrap">
+
+      <div data-screen-label="Mobile Pro / Dashboard">
+        <p class="lbl">01 · Dashboard</p>
+        <div style="width:390px;height:780px;background:#fff;border:1px solid rgba(43,39,35,.14);border-radius:24px;box-shadow:0 1px 3px rgba(0,0,0,.06);display:flex;flex-direction:column;overflow:hidden">
+          <div style="padding:18px 18px 10px;display:flex;align-items:center;justify-content:space-between">
+            <div style="font:700 18px sans-serif">Ciao, Andrea</div>
+            <div class="ph2" style="width:32px;height:32px;border-radius:16px"></div>
+          </div>
+          <div style="padding:0 18px;display:flex;flex-direction:column;gap:14px;flex:1;overflow:auto">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+              <sc-for list="{{ statCards }}" as="s2" hint-placeholder-count="4">
+                <div class="dash" style="padding:14px">
+                  <div style="font:11px sans-serif;color:rgba(43,39,35,.5)">{{ s2.label }}</div>
+                  <div style="font:700 22px sans-serif;margin-top:4px">{{ s2.value }}</div>
+                </div>
+              </sc-for>
+            </div>
+            <div style="display:flex;gap:10px">
+              <div style="flex:1;background:#C1633A;color:#fff;text-align:center;font:600 12px sans-serif;padding:12px 6px;border-radius:8px">+ Esercizio</div>
+              <div style="flex:1;text-align:center;font:600 12px sans-serif;padding:12px 6px;border-radius:8px" class="dash">+ Programma</div>
+              <div style="flex:1;text-align:center;font:600 12px sans-serif;padding:12px 6px;border-radius:8px" class="dash">+ Atleta</div>
+            </div>
+            <div class="dash" style="padding:14px;display:flex;flex-direction:column;gap:10px">
+              <div style="font:600 13px sans-serif">Atleti recenti</div>
+              <sc-for list="{{ athletes }}" as="a3" hint-placeholder-count="3">
+                <div style="display:flex;align-items:center;gap:10px;padding:6px 0">
+                  <div class="ph2" style="width:28px;height:28px;border-radius:14px"></div>
+                  <div style="flex:1">
+                    <div style="font:13px sans-serif">{{ a3.name }}</div>
+                    <div style="font:11px sans-serif;color:rgba(43,39,35,.5)">{{ a3.program }}</div>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <div style="border-top:1px solid rgba(43,39,35,.1);display:flex;padding:10px 0">
+            <sc-for list="{{ tabBarPro }}" as="tb" hint-placeholder-count="4">
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
+                <div style="width:18px;height:18px;border-radius:4px;background:{{ tb.active ? '#C1633A' : '#D8D2C7' }}"></div>
+                <span style="font:10px sans-serif;color:{{ tb.active ? '#C1633A' : 'rgba(43,39,35,.5)' }}">{{ tb.label }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+
+      <div data-screen-label="Mobile Pro / Libreria">
+        <p class="lbl">02 · Libreria Esercizi</p>
+        <div style="width:390px;height:780px;background:#fff;border:1px solid rgba(43,39,35,.14);border-radius:24px;box-shadow:0 1px 3px rgba(0,0,0,.06);display:flex;flex-direction:column;overflow:hidden">
+          <div style="padding:18px 18px 10px;display:flex;align-items:center;justify-content:space-between">
+            <div style="font:700 18px sans-serif">Libreria</div>
+            <div style="background:#C1633A;color:#fff;font:600 12px sans-serif;padding:8px 12px;border-radius:6px">+ Nuovo</div>
+          </div>
+          <div style="padding:10px 18px;display:flex;flex-direction:column;gap:10px">
+            <div class="dash" style="padding:10px 12px;font:13px sans-serif;color:rgba(43,39,35,.45)">🔍 Cerca…</div>
+            <div style="display:flex;gap:6px;overflow:auto">
+              <sc-for list="{{ categories }}" as="c2" hint-placeholder-count="6">
+                <div style="white-space:nowrap;padding:6px 12px;border-radius:16px;font:11px sans-serif;background:{{ c2.active ? '#C1633A' : '#F0EEE9' }};color:{{ c2.active ? '#fff' : '#2B2723' }}">{{ c2.name }}</div>
+              </sc-for>
+            </div>
+          </div>
+          <div style="padding:0 18px;display:flex;flex-direction:column;gap:10px;flex:1;overflow:auto">
+            <sc-for list="{{ exercises }}" as="ex3" hint-placeholder-count="6">
+              <div class="dash" style="display:flex;gap:10px;padding:10px">
+                <div class="ph" style="width:56px;height:56px;flex:none;display:flex;align-items:center;justify-content:center">
+                  <span style="font:9px ui-monospace,monospace;color:rgba(43,39,35,.4)">video</span>
+                </div>
+                <div style="flex:1">
+                  <div style="font:600 13px sans-serif">{{ ex3.name }}</div>
+                  <div style="font:11px sans-serif;color:rgba(43,39,35,.5)">{{ ex3.cat }}</div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="border-top:1px solid rgba(43,39,35,.1);display:flex;padding:10px 0">
+            <sc-for list="{{ tabBarPro2 }}" as="tb2" hint-placeholder-count="4">
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
+                <div style="width:18px;height:18px;border-radius:4px;background:{{ tb2.active ? '#C1633A' : '#D8D2C7' }}"></div>
+                <span style="font:10px sans-serif;color:{{ tb2.active ? '#C1633A' : 'rgba(43,39,35,.5)' }}">{{ tb2.label }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+
+      <div data-screen-label="Mobile Pro / Atleti">
+        <p class="lbl">03 · Atleti</p>
+        <div style="width:390px;height:780px;background:#fff;border:1px solid rgba(43,39,35,.14);border-radius:24px;box-shadow:0 1px 3px rgba(0,0,0,.06);display:flex;flex-direction:column;overflow:hidden">
+          <div style="padding:18px 18px 10px;display:flex;align-items:center;justify-content:space-between">
+            <div style="font:700 18px sans-serif">Atleti</div>
+            <div style="background:#C1633A;color:#fff;font:600 12px sans-serif;padding:8px 12px;border-radius:6px">+ Nuovo</div>
+          </div>
+          <div style="padding:10px 18px;display:flex;flex-direction:column;gap:10px;flex:1;overflow:auto">
+            <sc-for list="{{ athletes }}" as="a4" hint-placeholder-count="4">
+              <div class="dash" style="display:flex;align-items:center;gap:10px;padding:12px">
+                <div class="ph2" style="width:36px;height:36px;border-radius:18px"></div>
+                <div style="flex:1">
+                  <div style="font:600 13px sans-serif">{{ a4.name }}</div>
+                  <div style="font:11px sans-serif;color:rgba(43,39,35,.5)">{{ a4.program }}</div>
+                  <div style="width:100%;height:5px;background:#F0EEE9;border-radius:3px;margin-top:6px;overflow:hidden">
+                    <div style="width:{{ a4.pct }}%;height:100%;background:#C1633A"></div>
+                  </div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="border-top:1px solid rgba(43,39,35,.1);display:flex;padding:10px 0">
+            <sc-for list="{{ tabBarPro3 }}" as="tb3" hint-placeholder-count="4">
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
+                <div style="width:18px;height:18px;border-radius:4px;background:{{ tb3.active ? '#C1633A' : '#D8D2C7' }}"></div>
+                <span style="font:10px sans-serif;color:{{ tb3.active ? '#C1633A' : 'rgba(43,39,35,.5)' }}">{{ tb3.label }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- GROUP C: FLOW CREAZIONE ESERCIZIO -->
+  <div>
+    <p class="lbl">Flow — Creazione Esercizio (4 step, modale mobile/desktop)</p>
+    <div style="display:flex;gap:32px;align-items:flex-start;flex-wrap:wrap">
+      <div data-screen-label="Creazione Esercizio / Step 1">
+        <p class="lbl">1 · Nome esercizio</p>
+        <div style="width:390px;height:600px;background:#fff;border:1px solid rgba(43,39,35,.14);border-radius:16px;box-shadow:0 1px 3px rgba(0,0,0,.06);display:flex;flex-direction:column;overflow:hidden">
+          <div style="padding:16px 18px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(43,39,35,.1)">
+            <span style="font:16px sans-serif;color:rgba(43,39,35,.4)">←</span>
+            <span style="font:600 14px sans-serif;flex:1;text-align:center">Nome esercizio</span>
+            <span style="font:11px sans-serif;color:rgba(43,39,35,.4)">1/4</span>
+          </div>
+          <div style="padding:20px 18px;display:flex;flex-direction:column;gap:10px;flex:1">
+            <div style="font:600 12px sans-serif;color:rgba(43,39,35,.6)">Nome esercizio</div>
+            <div class="dash" style="padding:12px 14px;font:13px sans-serif">Nordic Hamstring</div>
+            <div style="font:11px sans-serif;color:rgba(43,39,35,.45);margin-top:8px">Categoria</div>
+            <div class="dash" style="padding:12px 14px;font:13px sans-serif;color:rgba(43,39,35,.45)">Seleziona categoria ▾</div>
+          </div>
+          <div style="padding:16px 18px;border-top:1px solid rgba(43,39,35,.1)">
+            <div style="background:#C1633A;color:#fff;text-align:center;font:600 13px sans-serif;padding:13px;border-radius:8px">Continua</div>
+          </div>
+        </div>
+      </div>
+
+      <div data-screen-label="Creazione Esercizio / Step 2">
+        <p class="lbl">2 · Aggiungi video</p>
+        <div style="width:390px;height:600px;background:#fff;border:1px solid rgba(43,39,35,.14);border-radius:16px;box-shadow:0 1px 3px rgba(0,0,0,.06);display:flex;flex-direction:column;overflow:hidden">
+          <div style="padding:16px 18px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(43,39,35,.1)">
+            <span style="font:16px sans-serif;color:rgba(43,39,35,.4)">←</span>
+            <span style="font:600 14px sans-serif;flex:1;text-align:center">Aggiungi video</span>
+            <span style="font:11px sans-serif;color:rgba(43,39,35,.4)">2/4</span>
+          </div>
+          <div style="padding:20px 18px;display:flex;flex-direction:column;gap:10px;flex:1">
+            <div class="dash" style="padding:16px;display:flex;align-items:center;gap:10px"><div style="width:20px;height:20px;background:#D8D2C7;border-radius:4px"></div><span style="font:13px sans-serif">Upload video personale</span></div>
+            <div class="dash" style="padding:16px;display:flex;align-items:center;gap:10px"><div style="width:20px;height:20px;background:#D8D2C7;border-radius:4px"></div><span style="font:13px sans-serif">Link YouTube</span></div>
+            <div class="dash" style="padding:16px;display:flex;align-items:center;gap:10px"><div style="width:20px;height:20px;background:#D8D2C7;border-radius:4px"></div><span style="font:13px sans-serif">Libreria interna</span></div>
+          </div>
+          <div style="padding:16px 18px;border-top:1px solid rgba(43,39,35,.1)">
+            <div style="background:#C1633A;color:#fff;text-align:center;font:600 13px sans-serif;padding:13px;border-radius:8px">Continua</div>
+          </div>
+        </div>
+      </div>
+
+      <div data-screen-label="Creazione Esercizio / Step 3">
+        <p class="lbl">3 · Dettagli e parametri</p>
+        <div style="width:390px;height:600px;background:#fff;border:1px solid rgba(43,39,35,.14);border-radius:16px;box-shadow:0 1px 3px rgba(0,0,0,.06);display:flex;flex-direction:column;overflow:hidden">
+          <div style="padding:16px 18px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(43,39,35,.1)">
+            <span style="font:16px sans-serif;color:rgba(43,39,35,.4)">←</span>
+            <span style="font:600 14px sans-serif;flex:1;text-align:center">Dettagli e parametri</span>
+            <span style="font:11px sans-serif;color:rgba(43,39,35,.4)">3/4</span>
+          </div>
+          <div style="padding:20px 18px;display:flex;flex-direction:column;gap:10px;flex:1">
+            <div style="font:11px sans-serif;color:rgba(43,39,35,.5)">Descrizione tecnica</div>
+            <div class="dash" style="padding:12px;height:70px"></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px">
+              <div class="dash" style="padding:10px 12px;font:12px sans-serif;color:rgba(43,39,35,.45)">Serie</div>
+              <div class="dash" style="padding:10px 12px;font:12px sans-serif;color:rgba(43,39,35,.45)">Ripetizioni</div>
+              <div class="dash" style="padding:10px 12px;font:12px sans-serif;color:rgba(43,39,35,.45)">Recupero</div>
+              <div class="dash" style="padding:10px 12px;font:12px sans-serif;color:rgba(43,39,35,.45)">Carico</div>
+            </div>
+            <div class="dash" style="padding:10px 12px;font:12px sans-serif;color:rgba(43,39,35,.45);margin-top:6px">+ aggiungi tag</div>
+          </div>
+          <div style="padding:16px 18px;border-top:1px solid rgba(43,39,35,.1)">
+            <div style="background:#C1633A;color:#fff;text-align:center;font:600 13px sans-serif;padding:13px;border-radius:8px">Continua</div>
+          </div>
+        </div>
+      </div>
+
+      <div data-screen-label="Creazione Esercizio / Step 4">
+        <p class="lbl">4 · Salva</p>
+        <div style="width:390px;height:600px;background:#fff;border:1px solid rgba(43,39,35,.14);border-radius:16px;box-shadow:0 1px 3px rgba(0,0,0,.06);display:flex;flex-direction:column;overflow:hidden">
+          <div style="padding:16px 18px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(43,39,35,.1)">
+            <span style="font:16px sans-serif;color:rgba(43,39,35,.4)">←</span>
+            <span style="font:600 14px sans-serif;flex:1;text-align:center">Salva</span>
+            <span style="font:11px sans-serif;color:rgba(43,39,35,.4)">4/4</span>
+          </div>
+          <div style="padding:20px 18px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;flex:1">
+            <div style="width:56px;height:56px;border-radius:28px;background:#F0DDD1;display:flex;align-items:center;justify-content:center"><div style="width:22px;height:22px;background:#C1633A;border-radius:4px"></div></div>
+            <div style="font:600 15px sans-serif">Esercizio salvato</div>
+            <div style="font:12px sans-serif;color:rgba(43,39,35,.5);text-align:center">Aggiunto alla tua libreria privata</div>
+          </div>
+          <div style="padding:16px 18px;border-top:1px solid rgba(43,39,35,.1)">
+            <div style="background:#C1633A;color:#fff;text-align:center;font:600 13px sans-serif;padding:13px;border-radius:8px">Vai alla libreria</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GROUP D: FLOW ASSEGNA PROGRAMMA -->
+  <div>
+    <p class="lbl">Flow — Assegna Programma</p>
+    <div style="display:flex;gap:32px;align-items:flex-start;flex-wrap:wrap">
+
+      <div data-screen-label="Assegna Programma / Seleziona Programma">
+        <p class="lbl">1 · Seleziona programma</p>
+        <div style="width:390px;height:560px;background:#fff;border:1px solid rgba(43,39,35,.14);border-radius:16px;box-shadow:0 1px 3px rgba(0,0,0,.06);display:flex;flex-direction:column;overflow:hidden">
+          <div style="padding:16px 18px;border-bottom:1px solid rgba(43,39,35,.1);font:600 14px sans-serif;text-align:center">Assegna programma</div>
+          <div style="padding:16px 18px;display:flex;flex-direction:column;gap:10px;flex:1;overflow:auto">
+            <sc-for list="{{ programs }}" as="p2" hint-placeholder-count="3">
+              <div class="dash" style="padding:14px;display:flex;align-items:center;gap:10px">
+                <div style="width:16px;height:16px;border-radius:8px;border:2px solid #C1633A"></div>
+                <div>
+                  <div style="font:600 13px sans-serif">{{ p2.name }}</div>
+                  <div style="font:11px sans-serif;color:rgba(43,39,35,.5)">{{ p2.athletes }} atleti assegnati</div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="padding:16px 18px;border-top:1px solid rgba(43,39,35,.1)">
+            <div style="background:#C1633A;color:#fff;text-align:center;font:600 13px sans-serif;padding:13px;border-radius:8px">Continua</div>
+          </div>
+        </div>
+      </div>
+
+      <div data-screen-label="Assegna Programma / Seleziona Atleta">
+        <p class="lbl">2 · Seleziona atleta e conferma</p>
+        <div style="width:390px;height:560px;background:#fff;border:1px solid rgba(43,39,35,.14);border-radius:16px;box-shadow:0 1px 3px rgba(0,0,0,.06);display:flex;flex-direction:column;overflow:hidden">
+          <div style="padding:16px 18px;border-bottom:1px solid rgba(43,39,35,.1);font:600 14px sans-serif;text-align:center">Pre-season Calcio</div>
+          <div style="padding:16px 18px;display:flex;flex-direction:column;gap:10px;flex:1;overflow:auto">
+            <div class="dash" style="padding:10px 12px;font:13px sans-serif;color:rgba(43,39,35,.45)">🔍 Cerca atleta…</div>
+            <sc-for list="{{ athletes }}" as="a5" hint-placeholder-count="4">
+              <div style="display:flex;align-items:center;gap:10px;padding:10px 4px;border-bottom:1px solid rgba(43,39,35,.08)">
+                <div class="ph2" style="width:30px;height:30px;border-radius:15px"></div>
+                <span style="flex:1;font:13px sans-serif">{{ a5.name }}</span>
+                <div style="width:16px;height:16px;border-radius:8px;border:2px solid #D8D2C7"></div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="padding:16px 18px;border-top:1px solid rgba(43,39,35,.1)">
+            <div style="background:#C1633A;color:#fff;text-align:center;font:600 13px sans-serif;padding:13px;border-radius:8px">Assegna a 2 atleti</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- GROUP E: APP ATLETA MOBILE -->
+  <div>
+    <p class="lbl">App Atleta — Mobile</p>
+    <div style="display:flex;gap:32px;align-items:flex-start;flex-wrap:wrap">
+
+      <div data-screen-label="Atleta / Allenamento Oggi">
+        <p class="lbl">01 · Allenamento di oggi</p>
+        <div style="width:390px;height:780px;background:#fff;border:1px solid rgba(43,39,35,.14);border-radius:24px;box-shadow:0 1px 3px rgba(0,0,0,.06);display:flex;flex-direction:column;overflow:hidden">
+          <div style="padding:20px 18px 8px">
+            <div style="font:13px sans-serif;color:rgba(43,39,35,.5)">Oggi, Giovedì</div>
+            <div style="font:700 20px sans-serif;margin-top:2px">Pre-season Calcio — Sett. 1</div>
+          </div>
+          <div style="padding:10px 18px;display:flex;flex-direction:column;gap:10px;flex:1;overflow:auto">
+            <sc-for list="{{ todayWorkout }}" as="w" hint-placeholder-count="4">
+              <div class="dash" style="display:flex;align-items:center;gap:12px;padding:14px;opacity:{{ w.done ? '0.5' : '1' }}">
+                <div class="ph" style="width:48px;height:48px;flex:none;display:flex;align-items:center;justify-content:center">
+                  <span style="font:9px ui-monospace,monospace;color:rgba(43,39,35,.4)">video</span>
+                </div>
+                <div style="flex:1">
+                  <div style="font:600 13px sans-serif;text-decoration:{{ w.done ? 'line-through' : 'none' }}">{{ w.name }}</div>
+                  <div style="font:11px sans-serif;color:rgba(43,39,35,.5)">{{ w.sets }}</div>
+                </div>
+                <div style="width:22px;height:22px;border-radius:11px;border:2px solid {{ w.done ? '#C1633A' : '#D8D2C7' }};background:{{ w.done ? '#C1633A' : 'transparent' }}"></div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="padding:16px 18px;border-top:1px solid rgba(43,39,35,.1)">
+            <div style="background:#C1633A;color:#fff;text-align:center;font:600 13px sans-serif;padding:13px;border-radius:8px">Inizia allenamento</div>
+          </div>
+        </div>
+      </div>
+
+      <div data-screen-label="Atleta / Esercizio + Video">
+        <p class="lbl">02 · Esercizio in corso</p>
+        <div style="width:390px;height:780px;background:#fff;border:1px solid rgba(43,39,35,.14);border-radius:24px;box-shadow:0 1px 3px rgba(0,0,0,.06);display:flex;flex-direction:column;overflow:hidden">
+          <div class="ph" style="height:260px;display:flex;align-items:center;justify-content:center;flex:none">
+            <span style="font:11px ui-monospace,monospace;color:rgba(43,39,35,.4)">[player video esercizio]</span>
+          </div>
+          <div style="padding:18px;display:flex;flex-direction:column;gap:14px;flex:1;overflow:auto">
+            <div>
+              <div style="font:700 18px sans-serif">Nordic Hamstring</div>
+              <div style="font:13px sans-serif;color:rgba(43,39,35,.5);margin-top:2px">3 serie x 8 ripetizioni · recupero 90"</div>
+            </div>
+            <div class="dash" style="padding:14px">
+              <div style="font:600 12px sans-serif;margin-bottom:6px">Indicazioni</div>
+              <div class="ph" style="height:10px;width:90%;margin-bottom:6px"></div>
+              <div class="ph" style="height:10px;width:75%"></div>
+            </div>
+            <div style="display:flex;gap:10px">
+              <sc-for list="{{ setBoxes }}" as="sb" hint-placeholder-count="3">
+                <div class="dash" style="flex:1;text-align:center;padding:12px 4px;font:12px sans-serif">Serie {{ sb }}</div>
+              </sc-for>
+            </div>
+          </div>
+          <div style="padding:16px 18px;border-top:1px solid rgba(43,39,35,.1)">
+            <div style="background:#C1633A;color:#fff;text-align:center;font:600 13px sans-serif;padding:13px;border-radius:8px">Completa esercizio</div>
+          </div>
+        </div>
+      </div>
+
+      <div data-screen-label="Atleta / Feedback">
+        <p class="lbl">03 · Feedback post-esercizio</p>
+        <div style="width:390px;height:780px;background:#fff;border:1px solid rgba(43,39,35,.14);border-radius:24px;box-shadow:0 1px 3px rgba(0,0,0,.06);display:flex;flex-direction:column;overflow:hidden">
+          <div style="padding:20px 18px;text-align:center">
+            <div style="font:700 18px sans-serif">Come è andato?</div>
+            <div style="font:13px sans-serif;color:rgba(43,39,35,.5);margin-top:4px">Nordic Hamstring</div>
+          </div>
+          <div style="padding:10px 18px;display:flex;flex-direction:column;gap:20px;flex:1">
+            <div>
+              <div style="font:600 13px sans-serif;margin-bottom:10px">Difficoltà percepita</div>
+              <div style="display:flex;gap:8px">
+                <sc-for list="{{ difficultyOptions }}" as="d" hint-placeholder-count="3">
+                  <div class="dash" style="flex:1;text-align:center;padding:12px 4px;font:12px sans-serif;background:{{ d.selected ? '#F0DDD1' : 'transparent' }};border-color:{{ d.selected ? '#C1633A' : 'rgba(43,39,35,.28)' }}">{{ d.label }}</div>
+                </sc-for>
+              </div>
+            </div>
+            <div>
+              <div style="font:600 13px sans-serif;margin-bottom:10px">Dolore (0–10)</div>
+              <div style="display:flex;gap:4px">
+                <sc-for list="{{ painScale }}" as="n" hint-placeholder-count="11">
+                  <div style="flex:1;aspect-ratio:1;border-radius:5px;background:{{ n.selected ? '#C1633A' : '#F0EEE9' }};color:{{ n.selected ? '#fff' : 'rgba(43,39,35,.5)' }};display:flex;align-items:center;justify-content:center;font:11px sans-serif">{{ n.v }}</div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+          <div style="padding:16px 18px;border-top:1px solid rgba(43,39,35,.1)">
+            <div style="background:#C1633A;color:#fff;text-align:center;font:600 13px sans-serif;padding:13px;border-radius:8px">Invia feedback</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const navItems = [
+      {label:'Dashboard', active:true},
+      {label:'Libreria Esercizi', active:false},
+      {label:'Programmi', active:false},
+      {label:'Atleti', active:false},
+      {label:'Impostazioni', active:false},
+    ];
+    const navItems2 = navItems.map(n => ({label:n.label, active:n.label==='Libreria Esercizi'}));
+    const navItems3 = navItems.map(n => ({label:n.label, active:n.label==='Atleti'}));
+
+    const statCards = [
+      {label:'Esercizi in libreria', value:'86'},
+      {label:'Programmi attivi', value:'12'},
+      {label:'Atleti', value:'24'},
+      {label:'Allenamenti completati', value:'341'},
+    ];
+
+    const athletes = [
+      {name:'Marco Rossi', program:'Pre-season Calcio', last:'Ieri', pct:82},
+      {name:'Giulia Bianchi', program:'Recupero LCA', last:'3 giorni fa', pct:45},
+      {name:'Luca Ferrari', program:'Forza Base', last:'Oggi', pct:96},
+      {name:'Elena Conti', program:'Mobilità Generale', last:'5 giorni fa', pct:20},
+    ];
+
+    const programs = [
+      {name:'Pre-season Calcio', athletes:6},
+      {name:'Recupero LCA', athletes:2},
+      {name:'Forza Base', athletes:9},
+    ];
+
+    const categories = [
+      {name:'Tutti', active:true},
+      {name:'Forza', active:false},
+      {name:'Mobilità', active:false},
+      {name:'Prevenzione', active:false},
+      {name:'Recupero', active:false},
+      {name:'Core', active:false},
+      {name:'Performance', active:false},
+    ];
+
+    const exercises = [
+      {name:'Nordic Hamstring', cat:'Forza', tags:['Hamstring','LCA']},
+      {name:'Squat Bulgaro', cat:'Forza', tags:['Quadricipite']},
+      {name:'Plank Anti-Rotazione', cat:'Core', tags:['Core']},
+      {name:'Mobilità Anca 90/90', cat:'Mobilità', tags:['Anca']},
+      {name:'Monopodalico Bosu', cat:'Prevenzione', tags:['Caviglia']},
+      {name:'Sprint Progressivi', cat:'Performance', tags:['Calcio']},
+    ];
+
+    const programBlocks = [
+      {block:'Warm-up', items:['Mobilità Anca 90/90','Attivazione Glutei']},
+      {block:'Forza', items:['Nordic Hamstring','Squat Bulgaro']},
+      {block:'Core', items:['Plank Anti-Rotazione']},
+    ];
+
+    const history = [
+      {date:'11 Lug', feedback:'Facile'},
+      {date:'9 Lug', feedback:'Corretto'},
+      {date:'7 Lug', feedback:'Difficile · dolore 4/10'},
+      {date:'4 Lug', feedback:'Corretto'},
+    ];
+
+    const tabBarPro = [
+      {label:'Home', active:true}, {label:'Libreria', active:false},
+      {label:'Programmi', active:false}, {label:'Atleti', active:false},
+    ];
+    const tabBarPro2 = tabBarPro.map(t => ({label:t.label, active:t.label==='Libreria'}));
+    const tabBarPro3 = tabBarPro.map(t => ({label:t.label, active:t.label==='Atleti'}));
+
+    const todayWorkout = [
+      {name:'Mobilità Anca 90/90', sets:'2 x 10', done:true},
+      {name:'Nordic Hamstring', sets:'3 x 8', done:false},
+      {name:'Plank Anti-Rotazione', sets:'3 x 45"', done:false},
+      {name:'Sprint Progressivi', sets:'4 x 30m', done:false},
+    ];
+
+    const setBoxes = [1,2,3];
+    const difficultyOptions = [
+      {label:'Facile', selected:false},
+      {label:'Corretto', selected:true},
+      {label:'Difficile', selected:false},
+    ];
+    const painScale = Array.from({length:11}, (_, i) => ({v:i, selected:i===2}));
+
+    return {
+      navItems, navItems2, navItems3, statCards, athletes, programs, categories,
+      exercises, programBlocks, history, tabBarPro, tabBarPro2, tabBarPro3,
+      todayWorkout, setBoxes, difficultyOptions, painScale,
+    };
+  }
+}
+</script>
+</body>
+</html>
