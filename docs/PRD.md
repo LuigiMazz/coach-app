@@ -252,7 +252,7 @@ Considerazioni pratiche:
 - **Storage video**: Supabase Storage per l'MVP (upload diretto, quota limitata) — migrazione a Mux/Cloudflare Stream se il volume/qualità streaming lo richiede (già previsto nel PRD originale, confermato).
 - **Client**: pacchetto `supabase_flutter` ufficiale, ben supportato.
 
-Se preferisci un'alternativa (es. Firebase, o backend custom Node/NestJS + Postgres) dimmelo prima che disegniamo gli schemi di autenticazione/RLS in dettaglio — è la decisione con più impatto sul lavoro successivo.
+**Deciso: Supabase.**
 
 ---
 
@@ -273,21 +273,23 @@ Se preferisci un'alternativa (es. Firebase, o backend custom Node/NestJS + Postg
 
 Confermato dal PRD originale. Lo trasformiamo in checklist verificabile end-to-end (mappata ai flow):
 
-- [ ] Un professionista può registrarsi → **Flow A** (gap: schermate da creare, §5)
+- [ ] Un professionista può registrarsi → **Flow A** (wireframe pronto — vedi `project/Wireframes-new-screens.html`)
 - [ ] Può creare la propria libreria → **Flow B/C** (wireframe pronto)
 - [ ] Può aggiungere video (upload / YouTube / libreria interna) → **Flow B Step 2** (wireframe pronto)
-- [ ] Può creare programmi → **Flow D** (wireframe parziale, gap su nome/descrizione/durata iniziali)
+- [ ] Può creare programmi → **Flow D** (wireframe pronto — step iniziale in `Wireframes-new-screens.html`, builder in `Wireframes.dc.html`)
 - [ ] Può assegnare programmi → **Flow F** (wireframe pronto)
 - [ ] Un atleta può visualizzare il programma → **Flow G** (wireframe pronto)
 - [ ] L'atleta può completare esercizi → **Flow G** (wireframe pronto)
 - [ ] Il professionista riceve feedback → **Flow G → Completion** (wireframe pronto, manca solo nota libera)
 
-Su questa base possiamo dire che **~70% delle schermate necessarie sono già disegnate in bassa fedeltà**; il resto (registrazione, creazione atleta, creazione programma iniziale) va disegnato durante l'implementazione Flutter seguendo lo stesso design system.
+Su questa base **100% delle schermate necessarie sono ora disegnate in bassa fedeltà** tra i due file wireframe.
 
 ---
 
-## Decisioni aperte per procedere
+## Decisioni chiuse
 
-1. **Backend**: confermi Supabase o preferisci un'alternativa? Impatta subito lo schema di auth/RLS.
-2. **Gap di §5** (registrazione, creazione atleta, creazione programma): li disegno direttamente in Flutter in stile coerente col wireframe esistente, oppure vuoi prima vederli come nuovo wireframe low-fi?
-3. **Naming definitivo**: restiamo su "Coach Exercise Manager" per l'MVP (non blocca lo sviluppo, ma lo segnaliamo).
+1. **Backend: Supabase** (Auth + Postgres + Storage). Confermato — procediamo con lo schema RLS di §6 così com'è.
+2. **Schermate mancanti**: colmate con un nuovo wireframe low-fi, stesso linguaggio visivo del bundle originale — vedi `project/Wireframes-new-screens.html` (Registrazione professionista 2 step, Nuovo atleta, Nuovo programma step 0). File statico, senza dipendenza da `support.js`, coerente con palette e componenti di `Wireframes.dc.html`.
+3. **Naming**: resta provvisorio ("Coach Exercise Manager") per tutta la durata dell'MVP — non blocca lo sviluppo, si rivede prima del lancio pubblico.
+
+Prossimo passo: revisione di `Wireframes-new-screens.html`, poi via libera all'implementazione Flutter.

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Coach Exercise Manager — Wireframe low-fi (schermate aggiuntive)</title>
+<style>
+  body{margin:0;background:#F3EFE9;font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;color:#2B2723}
+  .lbl{font:600 11px/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;color:rgba(43,39,35,.5);text-transform:uppercase;letter-spacing:.06em;margin:0 0 10px 2px}
+  .ph{background:#E4DFD7;border-radius:4px}
+  .ph2{background:#D8D2C7;border-radius:4px}
+  .dash{border:1.5px dashed rgba(43,39,35,.28);border-radius:6px}
+  .frame{width:390px;background:#fff;border:1px solid rgba(43,39,35,.14);border-radius:16px;box-shadow:0 1px 3px rgba(0,0,0,.06);display:flex;flex-direction:column;overflow:hidden}
+  .frame-header{padding:16px 18px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(43,39,35,.1)}
+  .frame-header .back{font:16px sans-serif;color:rgba(43,39,35,.4)}
+  .frame-header .title{font:600 14px sans-serif;flex:1;text-align:center}
+  .frame-header .step{font:11px sans-serif;color:rgba(43,39,35,.4)}
+  .frame-body{padding:20px 18px;display:flex;flex-direction:column;gap:10px;flex:1;overflow:auto}
+  .field-label{font:600 12px sans-serif;color:rgba(43,39,35,.6);margin-top:8px}
+  .field-label:first-child{margin-top:0}
+  .input{padding:12px 14px;font:13px sans-serif}
+  .input.placeholder{color:rgba(43,39,35,.45)}
+  .frame-footer{padding:16px 18px;border-top:1px solid rgba(43,39,35,.1)}
+  .cta{background:#C1633A;color:#fff;text-align:center;font:600 13px sans-serif;padding:13px;border-radius:8px}
+  .cta-secondary{text-align:center;font:600 13px sans-serif;padding:13px;border-radius:8px}
+</style>
+</head>
+<body>
+
+<section style="padding:56px 56px 120px;display:flex;flex-direction:column;gap:64px;min-width:max-content">
+
+  <div>
+    <h1 style="font:700 22px/1.2 -apple-system,sans-serif;margin:0 0 4px">Coach Exercise Manager — Wireframe low-fi (schermate aggiuntive)</h1>
+    <p style="font:14px/1.5 -apple-system,sans-serif;color:rgba(43,39,35,.6);margin:0;max-width:680px">Colma i gap identificati in <code>docs/PRD.md</code> §5 rispetto al wireframe principale: Flow A (registrazione professionista), form creazione atleta, step iniziale creazione programma. Stesso linguaggio visivo di <code>Wireframes.dc.html</code> — struttura e gerarchia, non design visivo finale. File statico, nessuna dipendenza da support.js.</p>
+  </div>
+
+  <!-- GROUP F: FLOW A - REGISTRAZIONE PROFESSIONISTA -->
+  <div>
+    <p class="lbl">Flow A — Registrazione Professionista (2 step)</p>
+    <div style="display:flex;gap:32px;align-items:flex-start;flex-wrap:wrap">
+
+      <!-- F1 Registrazione -->
+      <div>
+        <p class="lbl">1 · Registrazione</p>
+        <div class="frame" style="height:640px">
+          <div class="frame-header">
+            <span class="title" style="text-align:left">Crea il tuo account</span>
+            <span class="step">1/2</span>
+          </div>
+          <div class="frame-body">
+            <div class="field-label">Nome</div>
+            <div class="dash input placeholder">Andrea Bianchi</div>
+            <div class="field-label">Email</div>
+            <div class="dash input placeholder">andrea@studio.it</div>
+            <div class="field-label">Password</div>
+            <div class="dash input placeholder">••••••••</div>
+            <div class="field-label">Professione</div>
+            <div class="dash input placeholder">Seleziona professione ▾</div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:2px">
+              <span style="font:11px sans-serif;padding:6px 12px;border-radius:16px;background:#C1633A;color:#fff">Personal Trainer</span>
+              <span style="font:11px sans-serif;padding:6px 12px;border-radius:16px;background:#F0EEE9">Preparatore atletico</span>
+              <span style="font:11px sans-serif;padding:6px 12px;border-radius:16px;background:#F0EEE9">Fisioterapista</span>
+              <span style="font:11px sans-serif;padding:6px 12px;border-radius:16px;background:#F0EEE9">Chinesiologo</span>
+              <span style="font:11px sans-serif;padding:6px 12px;border-radius:16px;background:#F0EEE9">Altro</span>
+            </div>
+          </div>
+          <div class="frame-footer" style="display:flex;flex-direction:column;gap:10px">
+            <div class="cta">Continua</div>
+            <div style="text-align:center;font:12px sans-serif;color:rgba(43,39,35,.5)">Hai già un account? <span style="color:#C1633A">Accedi</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- F2 Creazione profilo -->
+      <div>
+        <p class="lbl">2 · Crea il tuo profilo</p>
+        <div class="frame" style="height:640px">
+          <div class="frame-header">
+            <span class="back">←</span>
+            <span class="title">Crea il tuo profilo</span>
+            <span class="step">2/2</span>
+          </div>
+          <div class="frame-body" style="align-items:center">
+            <div class="ph2" style="width:88px;height:88px;border-radius:44px;margin:8px 0"></div>
+            <div style="font:12px sans-serif;color:#C1633A;margin-bottom:8px">+ Carica foto profilo</div>
+            <div style="width:100%">
+              <div class="field-label">Specializzazione</div>
+              <div class="dash input placeholder">Es. Riabilitazione ginocchio, calcio giovanile…</div>
+              <div class="field-label">Descrizione</div>
+              <div class="dash" style="padding:12px;height:90px"></div>
+            </div>
+          </div>
+          <div class="frame-footer">
+            <div class="cta">Vai alla dashboard</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- GROUP G: FORM CREAZIONE ATLETA -->
+  <div>
+    <p class="lbl">Form — Nuovo Atleta</p>
+    <div style="display:flex;gap:32px;align-items:flex-start;flex-wrap:wrap">
+      <div>
+        <p class="lbl">Nuovo atleta</p>
+        <div class="frame" style="height:600px">
+          <div class="frame-header">
+            <span class="back">✕</span>
+            <span class="title">Nuovo atleta</span>
+            <span class="step" style="visibility:hidden">·</span>
+          </div>
+          <div class="frame-body">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+              <div>
+                <div class="field-label">Nome</div>
+                <div class="dash input placeholder">Marco</div>
+              </div>
+              <div>
+                <div class="field-label">Cognome</div>
+                <div class="dash input placeholder">Rossi</div>
+              </div>
+            </div>
+            <div class="field-label">Email</div>
+            <div class="dash input placeholder">marco.rossi@email.it</div>
+            <div class="field-label">Sport</div>
+            <div class="dash input placeholder">Seleziona sport ▾</div>
+            <div class="field-label">Note</div>
+            <div class="dash" style="padding:12px;height:80px"></div>
+          </div>
+          <div class="frame-footer">
+            <div class="cta">Aggiungi atleta</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GROUP H: STEP INIZIALE CREAZIONE PROGRAMMA -->
+  <div>
+    <p class="lbl">Flow D — Nuovo Programma (step 0, precede il Programma Builder)</p>
+    <div style="display:flex;gap:32px;align-items:flex-start;flex-wrap:wrap">
+      <div>
+        <p class="lbl">Nuovo programma</p>
+        <div class="frame" style="height:560px">
+          <div class="frame-header">
+            <span class="back">✕</span>
+            <span class="title">Nuovo programma</span>
+            <span class="step" style="visibility:hidden">·</span>
+          </div>
+          <div class="frame-body">
+            <div class="field-label">Nome programma</div>
+            <div class="dash input placeholder">Es. Pre-season Calcio</div>
+            <div class="field-label">Descrizione</div>
+            <div class="dash" style="padding:12px;height:70px"></div>
+            <div class="field-label">Durata</div>
+            <div style="display:flex;align-items:center;gap:12px">
+              <div class="dash" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;font:16px sans-serif">–</div>
+              <div style="font:600 15px sans-serif">6 settimane</div>
+              <div class="dash" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;font:16px sans-serif">+</div>
+            </div>
+          </div>
+          <div class="frame-footer">
+            <div class="cta">Crea e apri builder</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+</body>
+</html>
