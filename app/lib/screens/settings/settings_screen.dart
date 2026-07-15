@@ -16,7 +16,10 @@ class SettingsScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('Impostazioni', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700)),
+            const Text(
+              'Impostazioni',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+            ),
             const SizedBox(height: 24),
             Container(
               padding: const EdgeInsets.all(18),
@@ -31,17 +34,34 @@ class SettingsScreen extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(MockData.proFirstName,
-                          style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600)),
-                      const Text('Personal Trainer',
-                          style: TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+                      Text(
+                        MockData.proFirstName,
+                        style: const TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const Text(
+                        'Personal Trainer',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: AppColors.textSecondary,
+                        ),
+                      ),
                     ],
                   ),
                 ],
               ),
             ),
             const SizedBox(height: 32),
-            const Text('Demo', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: AppColors.textSecondary)),
+            const Text(
+              'Demo',
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+                color: AppColors.textSecondary,
+              ),
+            ),
             const SizedBox(height: 10),
             OutlinedButton.icon(
               onPressed: () => context.push('/workout'),

@@ -23,7 +23,8 @@ class _LibraryScreenState extends State<LibraryScreen> {
 
   List<Exercise> get _filtered {
     return MockData.exercises.where((e) {
-      final matchesQuery = _query.isEmpty ||
+      final matchesQuery =
+          _query.isEmpty ||
           e.name.toLowerCase().contains(_query.toLowerCase()) ||
           e.tags.any((t) => t.toLowerCase().contains(_query.toLowerCase()));
       final matchesCategory = _category == 'Tutti' || e.category == _category;
@@ -34,95 +35,117 @@ class _LibraryScreenState extends State<LibraryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final isDesktop = constraints.maxWidth >= AppBreakpoints.desktop;
-        return SafeArea(
-          top: !isDesktop,
-          child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.fromLTRB(
-                  isDesktop ? 32 : 18,
-                  isDesktop ? 28 : 14,
-                  isDesktop ? 32 : 18,
-                  0,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text('Libreria Esercizi',
-                              style: TextStyle(
-                                  fontSize: isDesktop ? 20 : 18, fontWeight: FontWeight.w700)),
-                        ),
-                        ElevatedButton(
-                          onPressed: () => context.push('/exercises/new'),
-                          child: Text(isDesktop ? '+ Nuovo esercizio' : '+ Nuovo',
-                              style: TextStyle(fontSize: isDesktop ? 13 : 12)),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 16),
-                    if (isDesktop)
-                      Row(
-                        children: [
-                          Expanded(child: AppSearchField(hint: 'Cerca esercizio…', onChanged: (v) => setState(() => _query = v))),
-                          const SizedBox(width: 10),
-                          OutlinedButton.icon(
-                            onPressed: () {},
-                            icon: const Icon(Icons.tune, size: 16),
-                            label: const Text('Filtri'),
-                          ),
-                          const SizedBox(width: 10),
-                          OutlinedButton.icon(
-                            onPressed: () => setState(() => _favoritesOnly = !_favoritesOnly),
-                            icon: Icon(_favoritesOnly ? Icons.star : Icons.star_border, size: 16),
-                            label: const Text('Preferiti'),
-                          ),
-                        ],
-                      )
-                    else
-                      AppSearchField(hint: 'Cerca…', onChanged: (v) => setState(() => _query = v)),
-                    const SizedBox(height: 12),
-                    SizedBox(
-                      height: 32,
-                      child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: [
-                          for (final c in ['Tutti', ...exerciseCategories])
-                            Padding(
-                              padding: const EdgeInsets.only(right: 6),
-                              child: CategoryChip(
-                                label: c,
-                                selected: _category == c,
-                                onTap: () => setState(() => _category = c),
-                              ),
-                            ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 12),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: Padding(
+    return ValueListenableBuilder<int>(
+      valueListenable: MockData.revision,
+      builder: (context, _, __) => LayoutBuilder(
+        builder: (context, constraints) {
+          final isDesktop = constraints.maxWidth >= AppBreakpoints.desktop;
+          return SafeArea(
+            top: !isDesktop,
+            child: Column(
+              children: [
+                Padding(
                   padding: EdgeInsets.fromLTRB(
                     isDesktop ? 32 : 18,
-                    0,
+                    isDesktop ? 28 : 14,
                     isDesktop ? 32 : 18,
-                    isDesktop ? 32 : 12,
+                    0,
                   ),
-                  child: isDesktop ? _buildGrid() : _buildList(),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              'Libreria Esercizi',
+                              style: TextStyle(
+                                fontSize: isDesktop ? 20 : 18,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ),
+                          ElevatedButton(
+                            onPressed: () => context.push('/exercises/new'),
+                            child: Text(
+                              isDesktop ? '+ Nuovo esercizio' : '+ Nuovo',
+                              style: TextStyle(fontSize: isDesktop ? 13 : 12),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 16),
+                      if (isDesktop)
+                        Row(
+                          children: [
+                            Expanded(
+                              child: AppSearchField(
+                                hint: 'Cerca esercizio…',
+                                onChanged: (v) => setState(() => _query = v),
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            OutlinedButton.icon(
+                              onPressed: () {},
+                              icon: const Icon(Icons.tune, size: 16),
+                              label: const Text('Filtri'),
+                            ),
+                            const SizedBox(width: 10),
+                            OutlinedButton.icon(
+                              onPressed: () => setState(
+                                () => _favoritesOnly = !_favoritesOnly,
+                              ),
+                              icon: Icon(
+                                _favoritesOnly ? Icons.star : Icons.star_border,
+                                size: 16,
+                              ),
+                              label: const Text('Preferiti'),
+                            ),
+                          ],
+                        )
+                      else
+                        AppSearchField(
+                          hint: 'Cerca…',
+                          onChanged: (v) => setState(() => _query = v),
+                        ),
+                      const SizedBox(height: 12),
+                      SizedBox(
+                        height: 32,
+                        child: ListView(
+                          scrollDirection: Axis.horizontal,
+                          children: [
+                            for (final c in ['Tutti', ...exerciseCategories])
+                              Padding(
+                                padding: const EdgeInsets.only(right: 6),
+                                child: CategoryChip(
+                                  label: c,
+                                  selected: _category == c,
+                                  onTap: () => setState(() => _category = c),
+                                ),
+                              ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
-        );
-      },
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(
+                      isDesktop ? 32 : 18,
+                      0,
+                      isDesktop ? 32 : 18,
+                      isDesktop ? 32 : 12,
+                    ),
+                    child: isDesktop ? _buildGrid() : _buildList(),
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 
@@ -159,10 +182,20 @@ class _LibraryScreenState extends State<LibraryScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(ex.name,
-                        style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
-                    Text(ex.category,
-                        style: const TextStyle(fontSize: 11, color: AppColors.textSecondary)),
+                    Text(
+                      ex.name,
+                      style: const TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    Text(
+                      ex.category,
+                      style: const TextStyle(
+                        fontSize: 11,
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -206,24 +239,40 @@ class _ExerciseCard extends StatelessWidget {
                 Row(
                   children: [
                     Expanded(
-                      child: Text(exercise.name,
-                          style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis),
+                      child: Text(
+                        exercise.name,
+                        style: const TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                     Icon(
                       exercise.isFavorite ? Icons.star : Icons.star_border,
                       size: 16,
-                      color: exercise.isFavorite ? AppColors.accent : AppColors.textTertiary,
+                      color: exercise.isFavorite
+                          ? AppColors.accent
+                          : AppColors.textTertiary,
                     ),
                   ],
                 ),
                 const SizedBox(height: 2),
-                Text(exercise.category,
-                    style: const TextStyle(fontSize: 11, color: AppColors.textSecondary)),
+                Text(
+                  exercise.category,
+                  style: const TextStyle(
+                    fontSize: 11,
+                    color: AppColors.textSecondary,
+                  ),
+                ),
                 if (exercise.tags.isNotEmpty) ...[
                   const SizedBox(height: 6),
-                  Wrap(spacing: 6, runSpacing: 6, children: [for (final t in exercise.tags) AppTag(label: t)]),
+                  Wrap(
+                    spacing: 6,
+                    runSpacing: 6,
+                    children: [for (final t in exercise.tags) AppTag(label: t)],
+                  ),
                 ],
               ],
             ),

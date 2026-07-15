@@ -35,8 +35,15 @@ class ExercisePlayerScreen extends StatelessWidget {
                     child: Container(
                       width: 56,
                       height: 56,
-                      decoration: BoxDecoration(color: tint, shape: BoxShape.circle),
-                      child: const Icon(Icons.play_arrow_rounded, color: Colors.white, size: 32),
+                      decoration: BoxDecoration(
+                        color: tint,
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(
+                        Icons.play_arrow_rounded,
+                        color: Colors.white,
+                        size: 32,
+                      ),
                     ),
                   ),
                 ),
@@ -46,7 +53,11 @@ class ExercisePlayerScreen extends StatelessWidget {
                   child: IconButton(
                     icon: const CircleAvatar(
                       backgroundColor: Colors.black26,
-                      child: Icon(Icons.arrow_back, color: Colors.white, size: 18),
+                      child: Icon(
+                        Icons.arrow_back,
+                        color: Colors.white,
+                        size: 18,
+                      ),
                     ),
                     onPressed: () => context.pop(),
                   ),
@@ -59,11 +70,20 @@ class ExercisePlayerScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(w.name, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
+                    Text(
+                      w.name,
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                     const SizedBox(height: 4),
                     Text(
                       '${w.setsLabel} ripetizioni${w.rest.isNotEmpty ? ' · recupero ${w.rest}' : ''}',
-                      style: const TextStyle(fontSize: 13, color: AppColors.textSecondary),
+                      style: const TextStyle(
+                        fontSize: 13,
+                        color: AppColors.textSecondary,
+                      ),
                     ),
                     const SizedBox(height: 14),
                     if (w.instructions.isNotEmpty)
@@ -78,11 +98,21 @@ class ExercisePlayerScreen extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text('Indicazioni',
-                                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+                            const Text(
+                              'Indicazioni',
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
                             const SizedBox(height: 6),
-                            Text(w.instructions,
-                                style: const TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+                            Text(
+                              w.instructions,
+                              style: const TextStyle(
+                                fontSize: 12,
+                                color: AppColors.textSecondary,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -92,15 +122,24 @@ class ExercisePlayerScreen extends StatelessWidget {
                         for (var i = 1; i <= setsCount; i++)
                           Expanded(
                             child: Padding(
-                              padding: EdgeInsets.only(right: i == setsCount ? 0 : 8),
+                              padding: EdgeInsets.only(
+                                right: i == setsCount ? 0 : 8,
+                              ),
                               child: Container(
-                                padding: const EdgeInsets.symmetric(vertical: 12),
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 12,
+                                ),
                                 decoration: BoxDecoration(
-                                  border: Border.all(color: AppColors.borderStrong),
+                                  border: Border.all(
+                                    color: AppColors.borderStrong,
+                                  ),
                                   borderRadius: BorderRadius.circular(8),
                                 ),
-                                child: Text('Serie $i',
-                                    textAlign: TextAlign.center, style: const TextStyle(fontSize: 12)),
+                                child: Text(
+                                  'Serie $i',
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(fontSize: 12),
+                                ),
                               ),
                             ),
                           ),
@@ -119,7 +158,8 @@ class ExercisePlayerScreen extends StatelessWidget {
               child: SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () => context.push('/workout/$exerciseId/feedback'),
+                  onPressed: () =>
+                      context.push('/workout/$exerciseId/feedback'),
                   child: const Text('Completa esercizio'),
                 ),
               ),

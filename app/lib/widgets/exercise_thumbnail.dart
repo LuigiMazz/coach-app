@@ -33,7 +33,11 @@ class ExerciseThumbnail extends StatelessWidget {
           width: 28,
           height: 28,
           decoration: BoxDecoration(color: tint, shape: BoxShape.circle),
-          child: const Icon(Icons.play_arrow_rounded, color: Colors.white, size: 18),
+          child: const Icon(
+            Icons.play_arrow_rounded,
+            color: Colors.white,
+            size: 18,
+          ),
         ),
       ),
     );

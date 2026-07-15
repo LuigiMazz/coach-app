@@ -28,7 +28,9 @@ class _NewProgramScreenState extends State<NewProgramScreen> {
   void _createAndOpenBuilder(BuildContext context) {
     final program = Program(
       id: 'p${DateTime.now().microsecondsSinceEpoch}',
-      name: _nameCtrl.text.trim().isEmpty ? 'Nuovo programma' : _nameCtrl.text.trim(),
+      name: _nameCtrl.text.trim().isEmpty
+          ? 'Nuovo programma'
+          : _nameCtrl.text.trim(),
       description: _descriptionCtrl.text.trim(),
       durationWeeks: _weeks,
       currentWeek: 1,
@@ -39,7 +41,7 @@ class _NewProgramScreenState extends State<NewProgramScreen> {
         ProgramBlock(label: 'Core', items: []),
       ],
     );
-    MockData.programs.insert(0, program);
+    MockData.addProgram(program);
     context.pushReplacement('/programs/${program.id}');
   }
 
@@ -59,7 +61,9 @@ class _NewProgramScreenState extends State<NewProgramScreen> {
             label: 'Nome programma',
             child: TextField(
               controller: _nameCtrl,
-              decoration: const InputDecoration(hintText: 'Es. Pre-season Calcio'),
+              decoration: const InputDecoration(
+                hintText: 'Es. Pre-season Calcio',
+              ),
               onChanged: (_) => setState(() {}),
             ),
           ),
@@ -68,7 +72,9 @@ class _NewProgramScreenState extends State<NewProgramScreen> {
             child: TextField(
               controller: _descriptionCtrl,
               maxLines: 3,
-              decoration: const InputDecoration(hintText: 'Es. Programma forza 6 settimane'),
+              decoration: const InputDecoration(
+                hintText: 'Es. Programma forza 6 settimane',
+              ),
             ),
           ),
           WizardField(
@@ -77,18 +83,23 @@ class _NewProgramScreenState extends State<NewProgramScreen> {
               children: [
                 _StepperButton(
                   icon: Icons.remove,
-                  onTap: () => setState(() => _weeks = (_weeks - 1).clamp(1, 52)),
+                  onTap: () =>
+                      setState(() => _weeks = (_weeks - 1).clamp(1, 52)),
                 ),
                 Expanded(
                   child: Text(
                     '$_weeks settimane',
                     textAlign: TextAlign.center,
-                    style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+                    style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
                 _StepperButton(
                   icon: Icons.add,
-                  onTap: () => setState(() => _weeks = (_weeks + 1).clamp(1, 52)),
+                  onTap: () =>
+                      setState(() => _weeks = (_weeks + 1).clamp(1, 52)),
                 ),
               ],
             ),

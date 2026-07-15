@@ -31,17 +31,30 @@ class TodayWorkoutScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(workout.dayLabel,
-                            style: const TextStyle(fontSize: 13, color: AppColors.textSecondary)),
+                        Text(
+                          workout.dayLabel,
+                          style: const TextStyle(
+                            fontSize: 13,
+                            color: AppColors.textSecondary,
+                          ),
+                        ),
                         const SizedBox(height: 2),
-                        Text(workout.programName,
-                            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700)),
+                        Text(
+                          workout.programName,
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
                       ],
                     ),
                   ),
                   IconButton(
                     tooltip: 'Vista professionista (demo)',
-                    icon: const Icon(Icons.switch_account_outlined, color: AppColors.textTertiary),
+                    icon: const Icon(
+                      Icons.switch_account_outlined,
+                      color: AppColors.textTertiary,
+                    ),
                     onPressed: () => context.go('/dashboard'),
                   ),
                 ],
@@ -68,7 +81,11 @@ class TodayWorkoutScreen extends StatelessWidget {
                         ),
                         child: Row(
                           children: [
-                            ExerciseThumbnail(category: w.category, width: 48, height: 48),
+                            ExerciseThumbnail(
+                              category: w.category,
+                              width: 48,
+                              height: 48,
+                            ),
                             const SizedBox(width: 12),
                             Expanded(
                               child: Column(
@@ -79,11 +96,18 @@ class TodayWorkoutScreen extends StatelessWidget {
                                     style: TextStyle(
                                       fontSize: 13,
                                       fontWeight: FontWeight.w600,
-                                      decoration: w.done ? TextDecoration.lineThrough : null,
+                                      decoration: w.done
+                                          ? TextDecoration.lineThrough
+                                          : null,
                                     ),
                                   ),
-                                  Text(w.setsLabel,
-                                      style: const TextStyle(fontSize: 11, color: AppColors.textSecondary)),
+                                  Text(
+                                    w.setsLabel,
+                                    style: const TextStyle(
+                                      fontSize: 11,
+                                      color: AppColors.textSecondary,
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
@@ -92,14 +116,22 @@ class TodayWorkoutScreen extends StatelessWidget {
                               height: 22,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: w.done ? AppColors.accent : Colors.transparent,
+                                color: w.done
+                                    ? AppColors.accent
+                                    : Colors.transparent,
                                 border: Border.all(
-                                  color: w.done ? AppColors.accent : AppColors.placeholderStrong,
+                                  color: w.done
+                                      ? AppColors.accent
+                                      : AppColors.placeholderStrong,
                                   width: 2,
                                 ),
                               ),
                               child: w.done
-                                  ? const Icon(Icons.check, size: 14, color: Colors.white)
+                                  ? const Icon(
+                                      Icons.check,
+                                      size: 14,
+                                      color: Colors.white,
+                                    )
                                   : null,
                             ),
                           ],
@@ -115,7 +147,8 @@ class TodayWorkoutScreen extends StatelessWidget {
               child: SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () => context.push('/workout/${firstIncomplete.exerciseId}'),
+                  onPressed: () =>
+                      context.push('/workout/${firstIncomplete.exerciseId}'),
                   child: const Text('Inizia allenamento'),
                 ),
               ),

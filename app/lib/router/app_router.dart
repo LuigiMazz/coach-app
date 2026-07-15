@@ -7,6 +7,8 @@ import '../screens/athlete_app/today_workout_screen.dart';
 import '../screens/athletes/athlete_profile_screen.dart';
 import '../screens/athletes/athletes_screen.dart';
 import '../screens/athletes/new_athlete_screen.dart';
+import '../screens/auth/activate_account_screen.dart';
+import '../screens/auth/login_screen.dart';
 import '../screens/auth/registration_screen.dart';
 import '../screens/dashboard/dashboard_screen.dart';
 import '../screens/exercises/new_exercise_screen.dart';
@@ -22,32 +24,65 @@ final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
 
 final GoRouter appRouter = GoRouter(
   navigatorKey: rootNavigatorKey,
-  initialLocation: '/register',
+  initialLocation: '/login',
   routes: [
+    GoRoute(path: '/login', builder: (context, state) => const LoginScreen()),
     GoRoute(
       path: '/register',
       builder: (context, state) => const RegistrationScreen(),
     ),
+    GoRoute(
+      path: '/activate',
+      builder: (context, state) => ActivateAccountScreen(
+        athleteId: state.uri.queryParameters['athleteId']!,
+      ),
+    ),
 
     // Main sections — sidebar (desktop) / bottom nav (mobile), shared branch state.
     StatefulShellRoute.indexedStack(
-      builder: (context, state, navigationShell) => AppShell(navigationShell: navigationShell),
+      builder: (context, state, navigationShell) =>
+          AppShell(navigationShell: navigationShell),
       branches: [
-        StatefulShellBranch(routes: [
-          GoRoute(path: '/dashboard', builder: (context, state) => const DashboardScreen()),
-        ]),
-        StatefulShellBranch(routes: [
-          GoRoute(path: '/library', builder: (context, state) => const LibraryScreen()),
-        ]),
-        StatefulShellBranch(routes: [
-          GoRoute(path: '/programs', builder: (context, state) => const ProgramsScreen()),
-        ]),
-        StatefulShellBranch(routes: [
-          GoRoute(path: '/athletes', builder: (context, state) => const AthletesScreen()),
-        ]),
-        StatefulShellBranch(routes: [
-          GoRoute(path: '/settings', builder: (context, state) => const SettingsScreen()),
-        ]),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/dashboard',
+              builder: (context, state) => const DashboardScreen(),
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/library',
+              builder: (context, state) => const LibraryScreen(),
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/programs',
+              builder: (context, state) => const ProgramsScreen(),
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/athletes',
+              builder: (context, state) => const AthletesScreen(),
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/settings',
+              builder: (context, state) => const SettingsScreen(),
+            ),
+          ],
+        ),
       ],
     ),
 
@@ -65,7 +100,8 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/athletes/:id',
       parentNavigatorKey: rootNavigatorKey,
-      builder: (context, state) => AthleteProfileScreen(athleteId: state.pathParameters['id']!),
+      builder: (context, state) =>
+          AthleteProfileScreen(athleteId: state.pathParameters['id']!),
     ),
     GoRoute(
       path: '/programs/new',
@@ -83,7 +119,8 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/programs/:id',
       parentNavigatorKey: rootNavigatorKey,
-      builder: (context, state) => ProgramBuilderScreen(programId: state.pathParameters['id']!),
+      builder: (context, state) =>
+          ProgramBuilderScreen(programId: state.pathParameters['id']!),
     ),
 
     // Athlete-facing app (mobile-first, separate persona).

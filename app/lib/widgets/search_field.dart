@@ -22,7 +22,11 @@ class AppSearchField extends StatelessWidget {
       style: const TextStyle(fontSize: 13, color: AppColors.textPrimary),
       decoration: InputDecoration(
         hintText: hint,
-        prefixIcon: const Icon(Icons.search, size: 20, color: AppColors.textTertiary),
+        prefixIcon: const Icon(
+          Icons.search,
+          size: 20,
+          color: AppColors.textTertiary,
+        ),
         filled: true,
         fillColor: AppColors.surfaceMuted,
         contentPadding: const EdgeInsets.symmetric(horizontal: 4, vertical: 12),

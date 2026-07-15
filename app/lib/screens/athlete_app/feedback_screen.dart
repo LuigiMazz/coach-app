@@ -41,10 +41,18 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
               padding: const EdgeInsets.fromLTRB(18, 20, 18, 8),
               child: Column(
                 children: [
-                  const Text('Come è andato?',
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
+                  const Text(
+                    'Come è andato?',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+                  ),
                   const SizedBox(height: 4),
-                  Text(w.name, style: const TextStyle(fontSize: 13, color: AppColors.textSecondary)),
+                  Text(
+                    w.name,
+                    style: const TextStyle(
+                      fontSize: 13,
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -54,30 +62,46 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('Difficoltà percepita',
-                        style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
+                    const Text(
+                      'Difficoltà percepita',
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                     const SizedBox(height: 10),
                     Row(
                       children: [
                         for (final d in Difficulty.values)
                           Expanded(
                             child: Padding(
-                              padding: EdgeInsets.only(right: d == Difficulty.values.last ? 0 : 8),
+                              padding: EdgeInsets.only(
+                                right: d == Difficulty.values.last ? 0 : 8,
+                              ),
                               child: InkWell(
                                 onTap: () => setState(() => _difficulty = d),
                                 borderRadius: BorderRadius.circular(8),
                                 child: Container(
-                                  padding: const EdgeInsets.symmetric(vertical: 12),
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 12,
+                                  ),
                                   decoration: BoxDecoration(
-                                    color: _difficulty == d ? AppColors.accentSoft : Colors.transparent,
+                                    color: _difficulty == d
+                                        ? AppColors.accentSoft
+                                        : Colors.transparent,
                                     border: Border.all(
-                                      color: _difficulty == d ? AppColors.accent : AppColors.borderStrong,
+                                      color: _difficulty == d
+                                          ? AppColors.accent
+                                          : AppColors.borderStrong,
                                       width: _difficulty == d ? 1.5 : 1,
                                     ),
                                     borderRadius: BorderRadius.circular(8),
                                   ),
-                                  child: Text(d.label,
-                                      textAlign: TextAlign.center, style: const TextStyle(fontSize: 12)),
+                                  child: Text(
+                                    d.label,
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(fontSize: 12),
+                                  ),
                                 ),
                               ),
                             ),
@@ -85,7 +109,13 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                       ],
                     ),
                     const SizedBox(height: 24),
-                    const Text('Dolore (0–10)', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
+                    const Text(
+                      'Dolore (0–10)',
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                     const SizedBox(height: 10),
                     Row(
                       children: [
@@ -100,7 +130,9 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                                   borderRadius: BorderRadius.circular(5),
                                   child: Container(
                                     decoration: BoxDecoration(
-                                      color: _pain == n ? AppColors.accent : AppColors.surfaceMuted,
+                                      color: _pain == n
+                                          ? AppColors.accent
+                                          : AppColors.surfaceMuted,
                                       borderRadius: BorderRadius.circular(5),
                                     ),
                                     child: Center(
@@ -108,7 +140,9 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                                         '$n',
                                         style: TextStyle(
                                           fontSize: 11,
-                                          color: _pain == n ? Colors.white : AppColors.textSecondary,
+                                          color: _pain == n
+                                              ? Colors.white
+                                              : AppColors.textSecondary,
                                         ),
                                       ),
                                     ),
@@ -120,13 +154,20 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                       ],
                     ),
                     const SizedBox(height: 24),
-                    const Text('Nota (facoltativa)',
-                        style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
+                    const Text(
+                      'Nota (facoltativa)',
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                     const SizedBox(height: 10),
                     TextField(
                       controller: _noteCtrl,
                       maxLines: 3,
-                      decoration: const InputDecoration(hintText: 'Aggiungi una nota per il tuo coach…'),
+                      decoration: const InputDecoration(
+                        hintText: 'Aggiungi una nota per il tuo coach…',
+                      ),
                     ),
                   ],
                 ),

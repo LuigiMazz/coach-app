@@ -12,11 +12,14 @@ class DashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final isDesktop = constraints.maxWidth >= AppBreakpoints.desktop;
-        return isDesktop ? _DesktopDashboard() : const _MobileDashboard();
-      },
+    return ValueListenableBuilder<int>(
+      valueListenable: MockData.revision,
+      builder: (context, _, __) => LayoutBuilder(
+        builder: (context, constraints) {
+          final isDesktop = constraints.maxWidth >= AppBreakpoints.desktop;
+          return isDesktop ? _DesktopDashboard() : const _MobileDashboard();
+        },
+      ),
     );
   }
 }
@@ -36,11 +39,21 @@ class _DesktopDashboard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Dashboard',
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700)),
+                    Text(
+                      'Dashboard',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                     SizedBox(height: 2),
-                    Text('Bentornato, ${MockData.proFirstName}',
-                        style: TextStyle(fontSize: 13, color: AppColors.textSecondary)),
+                    Text(
+                      'Bentornato, ${MockData.proFirstName}',
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -69,7 +82,8 @@ class _DesktopDashboard extends StatelessWidget {
             mainAxisSpacing: 16,
             childAspectRatio: 2.1,
             children: [
-              for (final s in MockData.dashboardStats) StatCard(label: s.$1, value: s.$2),
+              for (final s in MockData.dashboardStats)
+                StatCard(label: s.$1, value: s.$2),
             ],
           ),
           const SizedBox(height: 24),
@@ -77,9 +91,19 @@ class _DesktopDashboard extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Expanded(flex: 13, child: _RecentAthletesCard(onTapAthlete: (id) => context.push('/athletes/$id'))),
+                Expanded(
+                  flex: 13,
+                  child: _RecentAthletesCard(
+                    onTapAthlete: (id) => context.push('/athletes/$id'),
+                  ),
+                ),
                 const SizedBox(width: 20),
-                Expanded(flex: 10, child: _ActiveProgramsCard(onTapProgram: (id) => context.push('/programs/$id'))),
+                Expanded(
+                  flex: 10,
+                  child: _ActiveProgramsCard(
+                    onTapProgram: (id) => context.push('/programs/$id'),
+                  ),
+                ),
               ],
             ),
           ),
@@ -102,8 +126,13 @@ class _MobileDashboard extends StatelessWidget {
             child: Row(
               children: [
                 Expanded(
-                  child: Text('Ciao, ${MockData.proFirstName}',
-                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
+                  child: Text(
+                    'Ciao, ${MockData.proFirstName}',
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                 ),
                 const AppAvatar(initials: 'AN', size: 32),
               ],
@@ -133,27 +162,38 @@ class _MobileDashboard extends StatelessWidget {
                       Expanded(
                         child: ElevatedButton(
                           onPressed: () => context.push('/exercises/new'),
-                          child: const Text('+ Esercizio', style: TextStyle(fontSize: 12)),
+                          child: const Text(
+                            '+ Esercizio',
+                            style: TextStyle(fontSize: 12),
+                          ),
                         ),
                       ),
                       const SizedBox(width: 8),
                       Expanded(
                         child: OutlinedButton(
                           onPressed: () => context.push('/programs/new'),
-                          child: const Text('+ Programma', style: TextStyle(fontSize: 12)),
+                          child: const Text(
+                            '+ Programma',
+                            style: TextStyle(fontSize: 12),
+                          ),
                         ),
                       ),
                       const SizedBox(width: 8),
                       Expanded(
                         child: OutlinedButton(
                           onPressed: () => context.push('/athletes/new'),
-                          child: const Text('+ Atleta', style: TextStyle(fontSize: 12)),
+                          child: const Text(
+                            '+ Atleta',
+                            style: TextStyle(fontSize: 12),
+                          ),
                         ),
                       ),
                     ],
                   ),
                   const SizedBox(height: 14),
-                  _RecentAthletesCard(onTapAthlete: (id) => context.push('/athletes/$id')),
+                  _RecentAthletesCard(
+                    onTapAthlete: (id) => context.push('/athletes/$id'),
+                  ),
                 ],
               ),
             ),
@@ -181,7 +221,10 @@ class _RecentAthletesCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Atleti recenti', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
+          const Text(
+            'Atleti recenti',
+            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+          ),
           const SizedBox(height: 8),
           for (final a in MockData.athletes)
             InkWell(
@@ -199,14 +242,27 @@ class _RecentAthletesCard extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(a.fullName, style: const TextStyle(fontSize: 13)),
-                          Text(a.activeProgram,
-                              style: const TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+                          Text(
+                            a.fullName,
+                            style: const TextStyle(fontSize: 13),
+                          ),
+                          Text(
+                            a.activeProgram,
+                            style: const TextStyle(
+                              fontSize: 12,
+                              color: AppColors.textSecondary,
+                            ),
+                          ),
                         ],
                       ),
                     ),
-                    Text(a.lastWorkout,
-                        style: const TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+                    Text(
+                      a.lastWorkout,
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -234,7 +290,10 @@ class _ActiveProgramsCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Programmi attivi', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
+          const Text(
+            'Programmi attivi',
+            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+          ),
           const SizedBox(height: 8),
           for (final p in MockData.programs)
             InkWell(
@@ -249,8 +308,13 @@ class _ActiveProgramsCard extends StatelessWidget {
                   children: [
                     Text(p.name, style: const TextStyle(fontSize: 13)),
                     const SizedBox(height: 2),
-                    Text('${p.athleteCount} atleti assegnati',
-                        style: const TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+                    Text(
+                      '${p.athleteCount} atleti assegnati',
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
                   ],
                 ),
               ),

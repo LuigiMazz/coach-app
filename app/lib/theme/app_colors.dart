@@ -39,6 +39,5 @@ class AppColors {
     'Performance': Color(0xFF4C7A5E),
   };
 
-  static Color tintFor(String category) =>
-      categoryTints[category] ?? accent;
+  static Color tintFor(String category) => categoryTints[category] ?? accent;
 }

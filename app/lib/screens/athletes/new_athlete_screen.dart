@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../data/mock_data.dart';
 import '../../models/athlete.dart';
+import '../../theme/app_colors.dart';
 import '../../widgets/wizard_scaffold.dart';
 
 class NewAthleteScreen extends StatefulWidget {
@@ -38,9 +39,10 @@ class _NewAthleteScreenState extends State<NewAthleteScreen> {
       notes: _notesCtrl.text.trim(),
       lastWorkout: 'Mai',
       completionPct: 0,
+      status: AthleteStatus.invited,
     );
-    MockData.athletes.insert(0, athlete);
-    context.pop();
+    MockData.addAthlete(athlete);
+    context.go('/athletes');
   }
 
   @override
@@ -82,7 +84,9 @@ class _NewAthleteScreenState extends State<NewAthleteScreen> {
             child: TextField(
               controller: _emailCtrl,
               keyboardType: TextInputType.emailAddress,
-              decoration: const InputDecoration(hintText: 'marco.rossi@email.it'),
+              decoration: const InputDecoration(
+                hintText: 'marco.rossi@email.it',
+              ),
             ),
           ),
           WizardField(
@@ -91,7 +95,8 @@ class _NewAthleteScreenState extends State<NewAthleteScreen> {
               initialValue: _sport,
               decoration: const InputDecoration(hintText: 'Seleziona sport'),
               items: [
-                for (final s in MockData.sports) DropdownMenuItem(value: s, child: Text(s)),
+                for (final s in MockData.sports)
+                  DropdownMenuItem(value: s, child: Text(s)),
               ],
               onChanged: (v) => setState(() => _sport = v),
             ),
@@ -102,6 +107,22 @@ class _NewAthleteScreenState extends State<NewAthleteScreen> {
               controller: _notesCtrl,
               maxLines: 3,
               decoration: const InputDecoration(hintText: null),
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: AppColors.surfaceMuted,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: const Text(
+              'Il tuo atleta non deve registrarsi: riceverà un invito a questa email '
+              'e accederà direttamente dalla schermata di login.',
+              style: TextStyle(
+                fontSize: 11,
+                color: AppColors.textSecondary,
+                height: 1.4,
+              ),
             ),
           ),
         ],

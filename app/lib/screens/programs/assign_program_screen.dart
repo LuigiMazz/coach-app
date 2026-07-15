@@ -13,7 +13,11 @@ class AssignProgramScreen extends StatefulWidget {
   final String? initialAthleteId;
   final String? initialProgramId;
 
-  const AssignProgramScreen({super.key, this.initialAthleteId, this.initialProgramId});
+  const AssignProgramScreen({
+    super.key,
+    this.initialAthleteId,
+    this.initialProgramId,
+  });
 
   @override
   State<AssignProgramScreen> createState() => _AssignProgramScreenState();
@@ -65,7 +69,9 @@ class _AssignProgramScreenState extends State<AssignProgramScreen> {
                   padding: const EdgeInsets.all(14),
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color: _selectedProgram?.id == p.id ? AppColors.accent : AppColors.borderStrong,
+                      color: _selectedProgram?.id == p.id
+                          ? AppColors.accent
+                          : AppColors.borderStrong,
                       width: _selectedProgram?.id == p.id ? 1.5 : 1,
                     ),
                     borderRadius: BorderRadius.circular(8),
@@ -77,16 +83,29 @@ class _AssignProgramScreenState extends State<AssignProgramScreen> {
                             ? Icons.radio_button_checked
                             : Icons.radio_button_off,
                         size: 20,
-                        color: _selectedProgram?.id == p.id ? AppColors.accent : AppColors.textTertiary,
+                        color: _selectedProgram?.id == p.id
+                            ? AppColors.accent
+                            : AppColors.textTertiary,
                       ),
                       const SizedBox(width: 12),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(p.name, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
-                            Text('${p.athleteCount} atleti assegnati',
-                                style: const TextStyle(fontSize: 11, color: AppColors.textSecondary)),
+                            Text(
+                              p.name,
+                              style: const TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            Text(
+                              '${p.athleteCount} atleti assegnati',
+                              style: const TextStyle(
+                                fontSize: 11,
+                                color: AppColors.textSecondary,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -108,11 +127,16 @@ class _AssignProgramScreenState extends State<AssignProgramScreen> {
     return WizardScaffold(
       title: _selectedProgram?.name ?? '',
       onBack: () => setState(() => _step = 0),
-      ctaLabel: 'Assegna a ${_selectedAthleteIds.length} atlet${_selectedAthleteIds.length == 1 ? 'a' : 'i'}',
+      ctaLabel:
+          'Assegna a ${_selectedAthleteIds.length} atlet${_selectedAthleteIds.length == 1 ? 'a' : 'i'}',
       ctaEnabled: _selectedAthleteIds.isNotEmpty,
       onCta: () {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('${_selectedProgram!.name} assegnato a ${_selectedAthleteIds.length} atleti')),
+          SnackBar(
+            content: Text(
+              '${_selectedProgram!.name} assegnato a ${_selectedAthleteIds.length} atleti',
+            ),
+          ),
         );
         context.go('/dashboard');
       },
@@ -142,7 +166,12 @@ class _AssignProgramScreenState extends State<AssignProgramScreen> {
                   children: [
                     AppAvatar(initials: a.initials, size: 30),
                     const SizedBox(width: 10),
-                    Expanded(child: Text(a.fullName, style: const TextStyle(fontSize: 13))),
+                    Expanded(
+                      child: Text(
+                        a.fullName,
+                        style: const TextStyle(fontSize: 13),
+                      ),
+                    ),
                     Icon(
                       _selectedAthleteIds.contains(a.id)
                           ? Icons.check_circle

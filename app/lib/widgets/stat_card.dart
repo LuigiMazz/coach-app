@@ -29,7 +29,10 @@ class StatCard extends StatelessWidget {
         children: [
           Text(
             label,
-            style: const TextStyle(fontSize: 12, color: AppColors.textSecondary),
+            style: const TextStyle(
+              fontSize: 12,
+              color: AppColors.textSecondary,
+            ),
           ),
           SizedBox(height: compact ? 4 : 8),
           Text(

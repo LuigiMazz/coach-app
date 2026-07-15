@@ -49,9 +49,14 @@ class WizardScaffold extends StatelessWidget {
               child: Column(
                 children: [
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 18,
+                      vertical: 16,
+                    ),
                     decoration: const BoxDecoration(
-                      border: Border(bottom: BorderSide(color: AppColors.border)),
+                      border: Border(
+                        bottom: BorderSide(color: AppColors.border),
+                      ),
                     ),
                     child: Row(
                       children: [
@@ -65,7 +70,9 @@ class WizardScaffold extends StatelessWidget {
                               size: 20,
                               color: AppColors.textTertiary,
                             ),
-                            onPressed: onBack ?? () => Navigator.of(context).maybePop(),
+                            onPressed:
+                                onBack ??
+                                () => Navigator.of(context).maybePop(),
                           ),
                         ),
                         Expanded(
@@ -84,7 +91,10 @@ class WizardScaffold extends StatelessWidget {
                           child: Text(
                             stepLabel ?? '',
                             textAlign: TextAlign.right,
-                            style: const TextStyle(fontSize: 11, color: AppColors.textTertiary),
+                            style: const TextStyle(
+                              fontSize: 11,
+                              color: AppColors.textTertiary,
+                            ),
                           ),
                         ),
                       ],

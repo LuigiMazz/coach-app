@@ -50,12 +50,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       title: 'Crea il tuo account',
       stepLabel: '1/2',
       showClose: true,
-      onBack: () => context.pop(),
+      onBack: () => context.go('/login'),
       ctaLabel: 'Continua',
       ctaEnabled: _step1Valid,
       onCta: () => setState(() => _step = 1),
       footerExtra: TextButton(
-        onPressed: () {},
+        onPressed: () => context.go('/login'),
         child: const Text('Hai già un account? Accedi'),
       ),
       body: Column(
@@ -119,7 +119,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         children: [
           const AppAvatar(initials: '+', size: 88),
           const SizedBox(height: 8),
-          TextButton(onPressed: () {}, child: const Text('+ Carica foto profilo')),
+          TextButton(
+            onPressed: () {},
+            child: const Text('+ Carica foto profilo'),
+          ),
           const SizedBox(height: 8),
           Align(
             alignment: Alignment.centerLeft,

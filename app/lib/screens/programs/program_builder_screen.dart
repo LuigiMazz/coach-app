@@ -37,13 +37,13 @@ class _ProgramBuilderScreenState extends State<ProgramBuilderScreen> {
   void _addToBlock(int blockIndex, Exercise exercise) {
     setState(() {
       _blocks[blockIndex].items.add(
-            ProgramExerciseItem(
-              exerciseName: exercise.name,
-              sets: exercise.sets == 0 ? 3 : exercise.sets,
-              reps: exercise.reps,
-              rest: exercise.rest.isEmpty ? '60"' : exercise.rest,
-            ),
-          );
+        ProgramExerciseItem(
+          exerciseName: exercise.name,
+          sets: exercise.sets == 0 ? 3 : exercise.sets,
+          reps: exercise.reps,
+          rest: exercise.rest.isEmpty ? '60"' : exercise.rest,
+        ),
+      );
     });
   }
 
@@ -100,14 +100,27 @@ class _ProgramBuilderScreenState extends State<ProgramBuilderScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(_program.name,
-                              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700)),
-                          Text('Settimana ${_program.currentWeek} di ${_program.durationWeeks}',
-                              style: const TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+                          Text(
+                            _program.name,
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          Text(
+                            'Settimana ${_program.currentWeek} di ${_program.durationWeeks}',
+                            style: const TextStyle(
+                              fontSize: 12,
+                              color: AppColors.textSecondary,
+                            ),
+                          ),
                         ],
                       ),
                     ),
-                    ElevatedButton(onPressed: () {}, child: const Text('Salva template')),
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: const Text('Salva template'),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 16),
@@ -175,7 +188,11 @@ class _BlockCard extends StatelessWidget {
   final ValueChanged<Exercise> onAccept;
   final VoidCallback onAddTap;
 
-  const _BlockCard({required this.block, required this.onAccept, required this.onAddTap});
+  const _BlockCard({
+    required this.block,
+    required this.onAccept,
+    required this.onAddTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -186,35 +203,58 @@ class _BlockCard extends StatelessWidget {
         return Container(
           padding: const EdgeInsets.all(14),
           decoration: BoxDecoration(
-            border: Border.all(color: highlighted ? AppColors.accent : AppColors.border, width: highlighted ? 1.5 : 1),
+            border: Border.all(
+              color: highlighted ? AppColors.accent : AppColors.border,
+              width: highlighted ? 1.5 : 1,
+            ),
             borderRadius: BorderRadius.circular(10),
             color: AppColors.surface,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(block.label,
-                  style: const TextStyle(
-                      fontSize: 13, fontWeight: FontWeight.w600, color: AppColors.textSecondary)),
+              Text(
+                block.label,
+                style: const TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.textSecondary,
+                ),
+              ),
               const SizedBox(height: 10),
               for (final item in block.items)
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8),
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 10,
+                    ),
                     decoration: BoxDecoration(
                       color: AppColors.background,
                       borderRadius: BorderRadius.circular(6),
                     ),
                     child: Row(
                       children: [
-                        const Icon(Icons.drag_indicator, size: 16, color: AppColors.textTertiary),
+                        const Icon(
+                          Icons.drag_indicator,
+                          size: 16,
+                          color: AppColors.textTertiary,
+                        ),
                         const SizedBox(width: 8),
                         Expanded(
-                          child: Text(item.exerciseName, style: const TextStyle(fontSize: 13)),
+                          child: Text(
+                            item.exerciseName,
+                            style: const TextStyle(fontSize: 13),
+                          ),
                         ),
-                        Text(item.label,
-                            style: const TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+                        Text(
+                          item.label,
+                          style: const TextStyle(
+                            fontSize: 12,
+                            color: AppColors.textSecondary,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -223,8 +263,14 @@ class _BlockCard extends StatelessWidget {
                 onTap: onAddTap,
                 child: const Padding(
                   padding: EdgeInsets.symmetric(vertical: 4),
-                  child: Text('+ aggiungi esercizio',
-                      style: TextStyle(fontSize: 12, color: AppColors.accent, fontWeight: FontWeight.w600)),
+                  child: Text(
+                    '+ aggiungi esercizio',
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: AppColors.accent,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ),
               ),
             ],
@@ -253,10 +299,15 @@ class _LibrarySidebarState extends State<_LibrarySidebar> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Libreria — trascina qui →',
-            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
+        const Text(
+          'Libreria — trascina qui →',
+          style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+        ),
         const SizedBox(height: 12),
-        AppSearchField(hint: 'Cerca…', onChanged: (v) => setState(() => _query = v)),
+        AppSearchField(
+          hint: 'Cerca…',
+          onChanged: (v) => setState(() => _query = v),
+        ),
         const SizedBox(height: 12),
         Expanded(
           child: ListView.separated(
@@ -270,7 +321,10 @@ class _LibrarySidebarState extends State<_LibrarySidebar> {
                   color: Colors.transparent,
                   child: _LibraryChip(exercise: ex, dragging: true),
                 ),
-                childWhenDragging: Opacity(opacity: 0.4, child: _LibraryChip(exercise: ex)),
+                childWhenDragging: Opacity(
+                  opacity: 0.4,
+                  child: _LibraryChip(exercise: ex),
+                ),
                 child: _LibraryChip(exercise: ex),
               );
             },
@@ -296,15 +350,31 @@ class _LibraryChip extends StatelessWidget {
         color: AppColors.background,
         borderRadius: BorderRadius.circular(6),
         boxShadow: dragging
-            ? [BoxShadow(color: Colors.black.withValues(alpha: 0.12), blurRadius: 8)]
+            ? [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.12),
+                  blurRadius: 8,
+                ),
+              ]
             : null,
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          ExerciseThumbnail(category: exercise.category, width: 26, height: 26, borderRadius: BorderRadius.circular(5)),
+          ExerciseThumbnail(
+            category: exercise.category,
+            width: 26,
+            height: 26,
+            borderRadius: BorderRadius.circular(5),
+          ),
           const SizedBox(width: 10),
-          Flexible(child: Text(exercise.name, style: const TextStyle(fontSize: 12), overflow: TextOverflow.ellipsis)),
+          Flexible(
+            child: Text(
+              exercise.name,
+              style: const TextStyle(fontSize: 12),
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
         ],
       ),
     );
@@ -336,9 +406,15 @@ class _ExercisePickerSheetState extends State<_ExercisePickerSheet> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Aggiungi esercizio', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700)),
+              const Text(
+                'Aggiungi esercizio',
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
+              ),
               const SizedBox(height: 12),
-              AppSearchField(hint: 'Cerca esercizio…', onChanged: (v) => setState(() => _query = v)),
+              AppSearchField(
+                hint: 'Cerca esercizio…',
+                onChanged: (v) => setState(() => _query = v),
+              ),
               const SizedBox(height: 12),
               Expanded(
                 child: ListView.separated(
@@ -350,9 +426,22 @@ class _ExercisePickerSheetState extends State<_ExercisePickerSheet> {
                     return ListTile(
                       onTap: () => Navigator.of(context).pop(ex),
                       contentPadding: EdgeInsets.zero,
-                      leading: ExerciseThumbnail(category: ex.category, width: 44, height: 44),
-                      title: Text(ex.name, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
-                      subtitle: Text(ex.category, style: const TextStyle(fontSize: 11)),
+                      leading: ExerciseThumbnail(
+                        category: ex.category,
+                        width: 44,
+                        height: 44,
+                      ),
+                      title: Text(
+                        ex.name,
+                        style: const TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      subtitle: Text(
+                        ex.category,
+                        style: const TextStyle(fontSize: 11),
+                      ),
                     );
                   },
                 ),

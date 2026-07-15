@@ -7,6 +7,7 @@ import '../../theme/app_colors.dart';
 import '../../theme/breakpoints.dart';
 import '../../widgets/app_avatar.dart';
 import '../../widgets/section_card.dart';
+import '../../widgets/status_badge.dart';
 
 class AthleteProfileScreen extends StatelessWidget {
   final String athleteId;
@@ -25,7 +26,10 @@ class AthleteProfileScreen extends StatelessWidget {
         final isDesktop = constraints.maxWidth >= AppBreakpoints.desktop;
         return Scaffold(
           appBar: AppBar(
-            leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () => context.pop()),
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () => context.pop(),
+            ),
             title: Text(athlete.fullName),
           ),
           body: SafeArea(
@@ -43,16 +47,57 @@ class AthleteProfileScreen extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(athlete.fullName,
-                                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700)),
-                            Text('${athlete.sport} · Preparazione atletica',
-                                style: const TextStyle(fontSize: 13, color: AppColors.textSecondary)),
+                            Row(
+                              children: [
+                                Text(
+                                  athlete.fullName,
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                const SizedBox(width: 10),
+                                AthleteStatusBadge(status: athlete.status),
+                              ],
+                            ),
+                            Text(
+                              '${athlete.sport} · Preparazione atletica',
+                              style: const TextStyle(
+                                fontSize: 13,
+                                color: AppColors.textSecondary,
+                              ),
+                            ),
+                            if (athlete.status == AthleteStatus.invited)
+                              Padding(
+                                padding: const EdgeInsets.only(top: 4),
+                                child: TextButton(
+                                  style: TextButton.styleFrom(
+                                    padding: EdgeInsets.zero,
+                                    minimumSize: Size.zero,
+                                  ),
+                                  onPressed: () {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          'Invito reinviato a ${athlete.email}',
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: const Text(
+                                    'Reinvia invito',
+                                    style: TextStyle(fontSize: 12),
+                                  ),
+                                ),
+                              ),
                           ],
                         ),
                       ),
                       if (isDesktop)
                         ElevatedButton(
-                          onPressed: () => context.push('/programs/assign?athleteId=${athlete.id}'),
+                          onPressed: () => context.push(
+                            '/programs/assign?athleteId=${athlete.id}',
+                          ),
                           child: const Text('Assegna programma'),
                         ),
                     ],
@@ -62,7 +107,9 @@ class AthleteProfileScreen extends StatelessWidget {
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
-                        onPressed: () => context.push('/programs/assign?athleteId=${athlete.id}'),
+                        onPressed: () => context.push(
+                          '/programs/assign?athleteId=${athlete.id}',
+                        ),
                         child: const Text('Assegna programma'),
                       ),
                     ),
@@ -117,7 +164,10 @@ class _ProgramsCard extends StatelessWidget {
               child: Text(p, style: const TextStyle(fontSize: 13)),
             ),
           if (athlete.assignedPrograms.isEmpty)
-            const Text('Nessun programma assegnato', style: TextStyle(fontSize: 13, color: AppColors.textSecondary)),
+            const Text(
+              'Nessun programma assegnato',
+              style: TextStyle(fontSize: 13, color: AppColors.textSecondary),
+            ),
         ],
       ),
     );
@@ -145,7 +195,13 @@ class _HistoryCard extends StatelessWidget {
                 children: [
                   Text(h.date, style: const TextStyle(fontSize: 13)),
                   const Spacer(),
-                  Text(h.feedback, style: const TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+                  Text(
+                    h.feedback,
+                    style: const TextStyle(
+                      fontSize: 12,
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
                 ],
               ),
             ),

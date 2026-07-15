@@ -97,9 +97,7 @@ class AppTheme {
           disabledBackgroundColor: AppColors.accent.withValues(alpha: 0.4),
           padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
           textStyle: textTheme.titleSmall?.copyWith(color: Colors.white),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           elevation: 0,
         ),
       ),
@@ -109,23 +107,30 @@ class AppTheme {
           side: const BorderSide(color: AppColors.borderStrong),
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 13),
           textStyle: textTheme.titleSmall,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         ),
       ),
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
           foregroundColor: AppColors.accent,
-          textStyle: textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
+          textStyle: textTheme.bodyMedium?.copyWith(
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: AppColors.surface,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 13),
-        hintStyle: textTheme.bodyMedium?.copyWith(color: AppColors.textTertiary),
-        labelStyle: textTheme.bodyMedium?.copyWith(color: AppColors.textSecondary),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 14,
+          vertical: 13,
+        ),
+        hintStyle: textTheme.bodyMedium?.copyWith(
+          color: AppColors.textTertiary,
+        ),
+        labelStyle: textTheme.bodyMedium?.copyWith(
+          color: AppColors.textSecondary,
+        ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: const BorderSide(color: AppColors.borderStrong),

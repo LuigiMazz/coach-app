@@ -55,7 +55,10 @@ class AppShell extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 8,
+                  ),
                   child: Row(
                     children: [
                       Container(
@@ -65,13 +68,21 @@ class AppShell extends StatelessWidget {
                           color: AppColors.accent,
                           borderRadius: BorderRadius.circular(7),
                         ),
-                        child: const Icon(Icons.bolt_rounded, color: Colors.white, size: 18),
+                        child: const Icon(
+                          Icons.bolt_rounded,
+                          color: Colors.white,
+                          size: 18,
+                        ),
                       ),
                       const SizedBox(width: 10),
                       const Expanded(
                         child: Text(
                           'Coach Exercise\nManager',
-                          style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, height: 1.15),
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            height: 1.15,
+                          ),
                         ),
                       ),
                     ],
@@ -89,7 +100,10 @@ class AppShell extends StatelessWidget {
                   ),
                 const Spacer(),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 8,
+                  ),
                   child: Row(
                     children: [
                       const AppAvatar(initials: 'AN', size: 30),
@@ -97,7 +111,10 @@ class AppShell extends StatelessWidget {
                       Expanded(
                         child: Text(
                           MockData.proFirstName,
-                          style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+                          style: const TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w600,
+                          ),
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
@@ -114,8 +131,9 @@ class AppShell extends StatelessWidget {
   }
 
   Widget _buildMobile(BuildContext context) {
-    final mobileEntries =
-        _navEntries.where((e) => e.mobileVisible).toList(growable: false);
+    final mobileEntries = _navEntries
+        .where((e) => e.mobileVisible)
+        .toList(growable: false);
     return Scaffold(
       body: navigationShell,
       bottomNavigationBar: DecoratedBox(
@@ -153,7 +171,11 @@ class _SidebarItem extends StatelessWidget {
   final bool selected;
   final VoidCallback onTap;
 
-  const _SidebarItem({required this.entry, required this.selected, required this.onTap});
+  const _SidebarItem({
+    required this.entry,
+    required this.selected,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -200,7 +222,11 @@ class _BottomNavItem extends StatelessWidget {
   final bool selected;
   final VoidCallback onTap;
 
-  const _BottomNavItem({required this.entry, required this.selected, required this.onTap});
+  const _BottomNavItem({
+    required this.entry,
+    required this.selected,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -212,8 +238,14 @@ class _BottomNavItem extends StatelessWidget {
         children: [
           Icon(entry.icon, size: 20, color: color),
           const SizedBox(height: 3),
-          Text(entry.label.replaceFirst(' Esercizi', ''),
-              style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: color)),
+          Text(
+            entry.label.replaceFirst(' Esercizi', ''),
+            style: TextStyle(
+              fontSize: 10,
+              fontWeight: FontWeight.w600,
+              color: color,
+            ),
+          ),
         ],
       ),
     );

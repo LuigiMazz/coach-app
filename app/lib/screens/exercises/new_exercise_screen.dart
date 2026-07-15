@@ -47,7 +47,9 @@ class _NewExerciseScreenState extends State<NewExerciseScreen> {
   void _save() {
     final exercise = Exercise(
       id: 'ex${DateTime.now().microsecondsSinceEpoch}',
-      name: _nameCtrl.text.trim().isEmpty ? 'Nuovo esercizio' : _nameCtrl.text.trim(),
+      name: _nameCtrl.text.trim().isEmpty
+          ? 'Nuovo esercizio'
+          : _nameCtrl.text.trim(),
       category: _category ?? exerciseCategories.first,
       description: _descriptionCtrl.text.trim(),
       personalNotes: _notesCtrl.text.trim(),
@@ -58,7 +60,7 @@ class _NewExerciseScreenState extends State<NewExerciseScreen> {
       load: _loadCtrl.text.trim(),
       tags: _tags,
     );
-    MockData.exercises.insert(0, exercise);
+    MockData.addExercise(exercise);
     setState(() => _step = 3);
   }
 
@@ -143,7 +145,8 @@ class _NewExerciseScreenState extends State<NewExerciseScreen> {
             icon: Icons.video_library_outlined,
             label: 'Libreria interna',
             selected: _videoSource == VideoSource.internalLibrary,
-            onTap: () => setState(() => _videoSource = VideoSource.internalLibrary),
+            onTap: () =>
+                setState(() => _videoSource = VideoSource.internalLibrary),
           ),
         ],
       ),
@@ -165,7 +168,9 @@ class _NewExerciseScreenState extends State<NewExerciseScreen> {
             child: TextField(
               controller: _descriptionCtrl,
               maxLines: 3,
-              decoration: const InputDecoration(hintText: 'Esecuzione, errori comuni, indicazioni…'),
+              decoration: const InputDecoration(
+                hintText: 'Esecuzione, errori comuni, indicazioni…',
+              ),
             ),
           ),
           WizardField(
@@ -173,7 +178,9 @@ class _NewExerciseScreenState extends State<NewExerciseScreen> {
             child: TextField(
               controller: _notesCtrl,
               maxLines: 2,
-              decoration: const InputDecoration(hintText: 'Note private, non visibili all\'atleta'),
+              decoration: const InputDecoration(
+                hintText: 'Note private, non visibili all\'atleta',
+              ),
             ),
           ),
           Row(
@@ -238,7 +245,10 @@ class _NewExerciseScreenState extends State<NewExerciseScreen> {
                       children: [
                         for (final t in _tags)
                           Chip(
-                            label: Text(t, style: const TextStyle(fontSize: 11)),
+                            label: Text(
+                              t,
+                              style: const TextStyle(fontSize: 11),
+                            ),
                             onDeleted: () => setState(() => _tags.remove(t)),
                           ),
                       ],
@@ -246,7 +256,9 @@ class _NewExerciseScreenState extends State<NewExerciseScreen> {
                   ),
                 TextField(
                   controller: _tagCtrl,
-                  decoration: const InputDecoration(hintText: '+ aggiungi tag (invio per confermare)'),
+                  decoration: const InputDecoration(
+                    hintText: '+ aggiungi tag (invio per confermare)',
+                  ),
                   onSubmitted: (value) {
                     final v = value.trim();
                     if (v.isEmpty) return;
@@ -279,16 +291,27 @@ class _NewExerciseScreenState extends State<NewExerciseScreen> {
           Container(
             width: 56,
             height: 56,
-            decoration: const BoxDecoration(color: AppColors.accentSoft, shape: BoxShape.circle),
-            child: const Icon(Icons.check_rounded, color: AppColors.accent, size: 28),
+            decoration: const BoxDecoration(
+              color: AppColors.accentSoft,
+              shape: BoxShape.circle,
+            ),
+            child: const Icon(
+              Icons.check_rounded,
+              color: AppColors.accent,
+              size: 28,
+            ),
           ),
           const SizedBox(height: 14),
-          const Text('Esercizio salvato',
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700)),
+          const Text(
+            'Esercizio salvato',
+            style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
+          ),
           const SizedBox(height: 6),
-          const Text('Aggiunto alla tua libreria privata',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+          const Text(
+            'Aggiunto alla tua libreria privata',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 12, color: AppColors.textSecondary),
+          ),
           const SizedBox(height: 12),
         ],
       ),
@@ -318,13 +341,20 @@ class _VideoSourceOption extends StatelessWidget {
         width: double.infinity,
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          border: Border.all(color: selected ? AppColors.accent : AppColors.borderStrong, width: selected ? 1.5 : 1),
+          border: Border.all(
+            color: selected ? AppColors.accent : AppColors.borderStrong,
+            width: selected ? 1.5 : 1,
+          ),
           borderRadius: BorderRadius.circular(8),
           color: selected ? AppColors.accentSoft : Colors.transparent,
         ),
         child: Row(
           children: [
-            Icon(icon, size: 20, color: selected ? AppColors.accent : AppColors.textSecondary),
+            Icon(
+              icon,
+              size: 20,
+              color: selected ? AppColors.accent : AppColors.textSecondary,
+            ),
             const SizedBox(width: 12),
             Text(label, style: const TextStyle(fontSize: 13)),
           ],

@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 import '../models/athlete.dart';
 import '../models/exercise.dart';
 import '../models/program.dart';
@@ -7,6 +9,15 @@ import '../models/workout.dart';
 /// (`project/Wireframes.dc.html`) so the high-fidelity build stays faithful.
 class MockData {
   MockData._();
+
+  /// Bumped on every mutation below. The four shell-branch screens
+  /// (Dashboard/Libreria/Programmi/Atleti) watch this to know when to
+  /// re-read the mock lists — `StatefulShellRoute.indexedStack` keeps each
+  /// tab's screen alive once visited, so without this a screen you'd
+  /// already opened would keep showing stale data after a create-flow
+  /// mutates these lists from elsewhere.
+  static final ValueNotifier<int> revision = ValueNotifier<int>(0);
+  static void _notify() => revision.value++;
 
   static const proFirstName = 'Andrea';
 
@@ -24,7 +35,8 @@ class MockData {
       category: 'Forza',
       description:
           'Controllare la fase eccentrica, ginocchia bloccate a terra da un partner o da un supporto.',
-      personalNotes: 'Utile in fase preventiva per infortuni al bicipite femorale.',
+      personalNotes:
+          'Utile in fase preventiva per infortuni al bicipite femorale.',
       sets: 3,
       reps: 8,
       rest: '90"',
@@ -35,7 +47,8 @@ class MockData {
       id: 'ex2',
       name: 'Squat Bulgaro',
       category: 'Forza',
-      description: 'Piede posteriore rialzato, busto leggermente inclinato in avanti.',
+      description:
+          'Piede posteriore rialzato, busto leggermente inclinato in avanti.',
       sets: 4,
       reps: 10,
       rest: '75"',
@@ -46,7 +59,8 @@ class MockData {
       id: 'ex3',
       name: 'Plank Anti-Rotazione',
       category: 'Core',
-      description: 'Mantenere il bacino stabile contrastando la resistenza laterale.',
+      description:
+          'Mantenere il bacino stabile contrastando la resistenza laterale.',
       sets: 3,
       reps: 0,
       duration: '45"',
@@ -57,7 +71,8 @@ class MockData {
       id: 'ex4',
       name: 'Mobilità Anca 90/90',
       category: 'Mobilità',
-      description: 'Transizione controllata tra le due posizioni, schiena neutra.',
+      description:
+          'Transizione controllata tra le due posizioni, schiena neutra.',
       sets: 2,
       reps: 10,
       rest: '30"',
@@ -89,7 +104,8 @@ class MockData {
       id: 'ex7',
       name: 'Rotazione Esterna Spalla',
       category: 'Prevenzione',
-      description: 'Gomito a 90°, elastico leggero, movimento lento e controllato.',
+      description:
+          'Gomito a 90°, elastico leggero, movimento lento e controllato.',
       sets: 3,
       reps: 15,
       rest: '45"',
@@ -136,7 +152,10 @@ class MockData {
       completionPct: 45,
       assignedPrograms: ['Recupero LCA'],
       history: [
-        WorkoutHistoryEntry(date: '10 Lug', feedback: 'Difficile · dolore 3/10'),
+        WorkoutHistoryEntry(
+          date: '10 Lug',
+          feedback: 'Difficile · dolore 3/10',
+        ),
         WorkoutHistoryEntry(date: '6 Lug', feedback: 'Corretto'),
       ],
     ),
@@ -165,9 +184,7 @@ class MockData {
       lastWorkout: '5 giorni fa',
       completionPct: 20,
       assignedPrograms: ['Mobilità Generale'],
-      history: [
-        WorkoutHistoryEntry(date: '9 Lug', feedback: 'Corretto'),
-      ],
+      history: [WorkoutHistoryEntry(date: '9 Lug', feedback: 'Corretto')],
     ),
   ];
 
@@ -180,17 +197,51 @@ class MockData {
       currentWeek: 1,
       athleteCount: 6,
       blocks: [
-        ProgramBlock(label: 'Warm-up', items: [
-          ProgramExerciseItem(exerciseName: 'Mobilità Anca 90/90', sets: 2, reps: 10, rest: '30"'),
-          ProgramExerciseItem(exerciseName: 'Attivazione Glutei', sets: 2, reps: 12, rest: '30"'),
-        ]),
-        ProgramBlock(label: 'Forza', items: [
-          ProgramExerciseItem(exerciseName: 'Nordic Hamstring', sets: 3, reps: 8, rest: '90"'),
-          ProgramExerciseItem(exerciseName: 'Squat Bulgaro', sets: 4, reps: 10, rest: '75"'),
-        ]),
-        ProgramBlock(label: 'Core', items: [
-          ProgramExerciseItem(exerciseName: 'Plank Anti-Rotazione', sets: 3, reps: 0, rest: '30"'),
-        ]),
+        ProgramBlock(
+          label: 'Warm-up',
+          items: [
+            ProgramExerciseItem(
+              exerciseName: 'Mobilità Anca 90/90',
+              sets: 2,
+              reps: 10,
+              rest: '30"',
+            ),
+            ProgramExerciseItem(
+              exerciseName: 'Attivazione Glutei',
+              sets: 2,
+              reps: 12,
+              rest: '30"',
+            ),
+          ],
+        ),
+        ProgramBlock(
+          label: 'Forza',
+          items: [
+            ProgramExerciseItem(
+              exerciseName: 'Nordic Hamstring',
+              sets: 3,
+              reps: 8,
+              rest: '90"',
+            ),
+            ProgramExerciseItem(
+              exerciseName: 'Squat Bulgaro',
+              sets: 4,
+              reps: 10,
+              rest: '75"',
+            ),
+          ],
+        ),
+        ProgramBlock(
+          label: 'Core',
+          items: [
+            ProgramExerciseItem(
+              exerciseName: 'Plank Anti-Rotazione',
+              sets: 3,
+              reps: 0,
+              rest: '30"',
+            ),
+          ],
+        ),
       ],
     ),
     Program(
@@ -201,12 +252,28 @@ class MockData {
       currentWeek: 3,
       athleteCount: 2,
       blocks: [
-        ProgramBlock(label: 'Mobilità', items: [
-          ProgramExerciseItem(exerciseName: 'Mobilità Anca 90/90', sets: 2, reps: 10, rest: '30"'),
-        ]),
-        ProgramBlock(label: 'Prevenzione', items: [
-          ProgramExerciseItem(exerciseName: 'Monopodalico Bosu', sets: 3, reps: 0, rest: '30"'),
-        ]),
+        ProgramBlock(
+          label: 'Mobilità',
+          items: [
+            ProgramExerciseItem(
+              exerciseName: 'Mobilità Anca 90/90',
+              sets: 2,
+              reps: 10,
+              rest: '30"',
+            ),
+          ],
+        ),
+        ProgramBlock(
+          label: 'Prevenzione',
+          items: [
+            ProgramExerciseItem(
+              exerciseName: 'Monopodalico Bosu',
+              sets: 3,
+              reps: 0,
+              rest: '30"',
+            ),
+          ],
+        ),
       ],
     ),
     Program(
@@ -217,10 +284,23 @@ class MockData {
       currentWeek: 2,
       athleteCount: 9,
       blocks: [
-        ProgramBlock(label: 'Forza', items: [
-          ProgramExerciseItem(exerciseName: 'Squat Bulgaro', sets: 4, reps: 10, rest: '75"'),
-          ProgramExerciseItem(exerciseName: 'Nordic Hamstring', sets: 3, reps: 8, rest: '90"'),
-        ]),
+        ProgramBlock(
+          label: 'Forza',
+          items: [
+            ProgramExerciseItem(
+              exerciseName: 'Squat Bulgaro',
+              sets: 4,
+              reps: 10,
+              rest: '75"',
+            ),
+            ProgramExerciseItem(
+              exerciseName: 'Nordic Hamstring',
+              sets: 3,
+              reps: 8,
+              rest: '90"',
+            ),
+          ],
+        ),
       ],
     ),
   ];
@@ -264,10 +344,51 @@ class MockData {
   );
 
   static void markWorkoutExerciseDone(String exerciseId) {
-    final i = todayWorkout.exercises.indexWhere((e) => e.exerciseId == exerciseId);
+    final i = todayWorkout.exercises.indexWhere(
+      (e) => e.exerciseId == exerciseId,
+    );
     if (i != -1) {
-      todayWorkout.exercises[i] = todayWorkout.exercises[i].copyWith(done: true);
+      todayWorkout.exercises[i] = todayWorkout.exercises[i].copyWith(
+        done: true,
+      );
+      _notify();
     }
+  }
+
+  static Athlete? findAthleteById(String id) {
+    final i = athletes.indexWhere((a) => a.id == id);
+    return i == -1 ? null : athletes[i];
+  }
+
+  static Athlete? findAthleteByEmail(String email) {
+    final needle = email.trim().toLowerCase();
+    for (final a in athletes) {
+      if (a.email.toLowerCase() == needle) return a;
+    }
+    return null;
+  }
+
+  static void activateAthlete(String id) {
+    final i = athletes.indexWhere((a) => a.id == id);
+    if (i != -1) {
+      athletes[i] = athletes[i].copyWith(status: AthleteStatus.active);
+      _notify();
+    }
+  }
+
+  static void addAthlete(Athlete athlete) {
+    athletes.insert(0, athlete);
+    _notify();
+  }
+
+  static void addExercise(Exercise exercise) {
+    exercises.insert(0, exercise);
+    _notify();
+  }
+
+  static void addProgram(Program program) {
+    programs.insert(0, program);
+    _notify();
   }
 
   static const List<String> sports = [
